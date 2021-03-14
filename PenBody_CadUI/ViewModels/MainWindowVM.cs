@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -14,6 +15,7 @@ namespace PenBody_CadUI
         private double _mainDiameter;
         private double _innerDiameter;
         private double _rubberDiameter;
+        private bool _isProgressVisible;
         private RelayCommand _resetCommand;
         private RelayCommand _buildCommand;
 
@@ -78,6 +80,16 @@ namespace PenBody_CadUI
             }
         }
 
+        public bool IsProgressVisible
+        {
+            get => _isProgressVisible;
+            set
+            {
+                _isProgressVisible = value;
+                OnPropertyChanged(nameof(IsProgressVisible));
+            }
+        }
+
         public RelayCommand ResetCommand
         {
             get
@@ -95,9 +107,14 @@ namespace PenBody_CadUI
             get
             {
                 return _buildCommand ??
-                    (_buildCommand = new RelayCommand((obj) =>
+                    (_buildCommand = new RelayCommand(async (obj) =>
                     {
-                        MessageBox.Show("Biulder works");
+                        IsProgressVisible = true;
+                        await Task.Factory.StartNew(() =>
+                        {
+                            Thread.Sleep(5000);;
+                        });
+                        IsProgressVisible = false;
                     }));
             }
         }

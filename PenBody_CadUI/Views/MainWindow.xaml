@@ -12,46 +12,28 @@
         <local:MainWindowVM/>
     </Window.DataContext>
     <Window.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="Width" Value="80"/>
-            <Setter Property="Height" Value="20"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="100"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="20"
-                                Background="{TemplateBinding Background}">
-
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7eb4ea"/>
-                </Trigger> 
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary Source="CadStyles.xaml"/>
     </Window.Resources>
-    <DockPanel Margin="0 5 0 0" Background="#c4c4c4">
+    <DockPanel Background="#c4c4c4">
+        <DockPanel.Resources>
+            <BooleanToVisibilityConverter x:Key="IsVisible"/>
+        </DockPanel.Resources>
         <TextBlock DockPanel.Dock="Top"
                    HorizontalAlignment="Center"
                    Text="Параметры построения"
                    Padding="0 5 0 0"
                    Height="30"
                    FontSize="17" FontWeight="Black"/>
+        <StackPanel DockPanel.Dock="Bottom"
+                    Visibility="{Binding IsProgressVisible, 
+                                    Converter={StaticResource IsVisible}, 
+                                    UpdateSourceTrigger=PropertyChanged}">
+            <TextBlock Text="Запуск Компаса..."/>
+            <ProgressBar
+                     Minimum="0" Maximum="100" 
+                     Height="10"
+                     IsIndeterminate="True"/>
+        </StackPanel>        
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
