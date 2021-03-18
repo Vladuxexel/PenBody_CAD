@@ -24,16 +24,13 @@
                    Padding="0 5 0 0"
                    Height="30"
                    FontSize="17" FontWeight="Black"/>
-        <StackPanel DockPanel.Dock="Bottom"
-                    Visibility="{Binding IsProgressVisible, 
-                                    Converter={StaticResource IsVisible}, 
-                                    UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Text="Запуск Компаса..."/>
-            <ProgressBar
-                     Minimum="0" Maximum="100" 
+        <StatusBar DockPanel.Dock="Bottom" Height="20">
+            <TextBlock x:Name="msgBlock" Text="{Binding Message}"/>
+            <ProgressBar Width="180"
                      Height="10"
-                     IsIndeterminate="True"/>
-        </StackPanel>        
+                     IsIndeterminate="True" 
+                     Visibility="{Binding IsLoading, Converter={StaticResource IsVisible}}"/>
+        </StatusBar>        
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>

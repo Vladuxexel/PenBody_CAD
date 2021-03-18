@@ -15,7 +15,8 @@ namespace PenBody_CadUI
         private double _mainDiameter;
         private double _innerDiameter;
         private double _rubberDiameter;
-        private bool _isProgressVisible;
+        private bool _isLoading;
+        private string _message;
         private RelayCommand _resetCommand;
         private RelayCommand _buildCommand;
 
@@ -24,6 +25,9 @@ namespace PenBody_CadUI
         private const double MAIN_DIAMETER = 15;
         private const double INNER_DIAMETER = 5;
         private const double RUBBER_DIAMETER = 10;
+        private const string WAITING_MSG = "Ожидание запуска процесса построения";
+        private const string LOADING_MSG = "Запуск КОМПАС-3D...";
+        private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
         public MainWindowVM()
         {
@@ -80,13 +84,23 @@ namespace PenBody_CadUI
             }
         }
 
-        public bool IsProgressVisible
+        public bool IsLoading
         {
-            get => _isProgressVisible;
+            get => _isLoading;
             set
             {
-                _isProgressVisible = value;
-                OnPropertyChanged(nameof(IsProgressVisible));
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+
+        public string Message
+        {
+            get => _message;
+            set
+            {
+                _message = value;
+                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -109,12 +123,14 @@ namespace PenBody_CadUI
                 return _buildCommand ??
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
-                        IsProgressVisible = true;
+                        IsLoading = true;
+                        Message = LOADING_MSG;
                         await Task.Factory.StartNew(() =>
                         {
                             Thread.Sleep(5000);;
                         });
-                        IsProgressVisible = false;
+                        IsLoading = false;
+                        Message = WAITING_MSG;
                     }));
             }
         }
@@ -126,6 +142,7 @@ namespace PenBody_CadUI
             MainDiameter = MAIN_DIAMETER;
             InnerDiameter = INNER_DIAMETER;
             RubberDiameter = RUBBER_DIAMETER;
+            Message = WAITING_MSG;
         }
     }
 }
