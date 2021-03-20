@@ -15,22 +15,10 @@
         <ResourceDictionary Source="CadStyles.xaml"/>
     </Window.Resources>
     <DockPanel Background="#c4c4c4">
-        <DockPanel.Resources>
-            <BooleanToVisibilityConverter x:Key="IsVisible"/>
-            <local:ReverseBoolConverter x:Key="ReverseBool"/>
-        </DockPanel.Resources>
-        <TextBlock DockPanel.Dock="Top"
-                   HorizontalAlignment="Center"
-                   Text="Параметры построения"
-                   Padding="0 5 0 0"
-                   Height="30"
-                   FontSize="17" FontWeight="Black"/>
+        <TextBlock DockPanel.Dock="Top" Text="Параметры построения" Style="{StaticResource Header}"/>
         <StatusBar DockPanel.Dock="Bottom" Height="20">
             <TextBlock Text="{Binding Message}" Style="{StaticResource MsgText}"/>
-            <ProgressBar Width="180"
-                     Height="10"
-                     IsIndeterminate="True" 
-                     Visibility="{Binding IsLoading, Converter={StaticResource IsVisible}}"/>
+            <ProgressBar/>
         </StatusBar>        
         <Grid Margin="5">
             <Grid.RowDefinitions>
@@ -51,37 +39,30 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Длина основной части (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" 
-                             IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
+                    <TextBox Grid.Column="1" Grid.Row="0"
                              Text="{Binding PenVM.MainLength,
                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Длина части для резинки (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="1"
-                             IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                              Text="{Binding PenVM.RubberLength,
                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Диаметр (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="2"
-                             IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                              Text="{Binding PenVM.MainDiameter, 
                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Внутренний диаметр (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="3"
-                             IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                              Text="{Binding PenVM.InnerDiameter, 
                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Диаметр части для резинки (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="4"
-                             IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                              Text="{Binding PenVM.RubberDiameter,
                                     UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
                 </Grid>
             </Border>
             <Button Grid.Row="1" Content="Сбросить" HorizontalAlignment="Left"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                     Command="{Binding ResetCommand}"/>
             <Button Grid.Row="1" Content="Построить" HorizontalAlignment="Right"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                     Command="{Binding BuildCommand}"/>
         </Grid>
     </DockPanel>

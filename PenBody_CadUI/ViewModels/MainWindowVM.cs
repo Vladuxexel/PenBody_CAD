@@ -93,8 +93,8 @@ namespace PenBody_CadUI
                             
                             return true;
                         }
-
                         Message = ERROR_MSG;
+
                         return false;
                     }
                     ));
