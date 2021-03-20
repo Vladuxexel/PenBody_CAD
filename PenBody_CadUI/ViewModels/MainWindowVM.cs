@@ -21,7 +21,7 @@ namespace PenBody_CadUI
         private const double MAIN_DIAMETER = 15;
         private const double INNER_DIAMETER = 5;
         private const double RUBBER_DIAMETER = 10;
-        private const string WAITING_MSG = "Ожидание запуска процесса построения";
+        private const string WAITING_MSG = "Ожидается запуск процесса построения";
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
@@ -77,25 +77,24 @@ namespace PenBody_CadUI
                         Message = LOADING_MSG;
                         await Task.Factory.StartNew(() =>
                         {
-                            Thread.Sleep(5000);;
+                            Thread.Sleep(5000);
                         });
                         IsLoading = false;
                         Message = WAITING_MSG;
-                    }, 
-                    (obj) => 
+                    },
+                    (obj) =>
                     {
-                        if (!IsLoading)
+                        if (PenVM.Error == null)
                         {
-                            if (PenVM.Error == null)
+                            if (!IsLoading)
                             {
-                                Message = WAITING_MSG;
-                                return true;
+                               Message = WAITING_MSG;
                             }
-
-                            Message = ERROR_MSG;
-                            return false;
+                            
+                            return true;
                         }
 
+                        Message = ERROR_MSG;
                         return false;
                     }
                     ));

@@ -78,8 +78,10 @@
                 </Grid>
             </Border>
             <Button Grid.Row="1" Content="Сбросить" HorizontalAlignment="Left"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                     Command="{Binding ResetCommand}"/>
             <Button Grid.Row="1" Content="Построить" HorizontalAlignment="Right"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource ReverseBool}}"
                     Command="{Binding BuildCommand}"/>
         </Grid>
     </DockPanel>
