@@ -5,7 +5,7 @@
     <BooleanToVisibilityConverter x:Key="IsVisible"/>
     <Style TargetType="ProgressBar">
         <Setter Property="Visibility" Value="{Binding IsLoading, Converter={StaticResource IsVisible}}"/>
-        <Setter Property="Width" Value="180"/>
+        <Setter Property="Width" Value="135"/>
         <Setter Property="Height" Value="10"/>
         <Setter Property="IsIndeterminate" Value="True"/>
     </Style>

@@ -22,7 +22,7 @@
             <fa:ImageAwesome Icon="Warning" Foreground="{Binding WarningIconColor}"/>
             <TextBlock Text="{Binding Message}" Style="{StaticResource MsgText}"/>
             <ProgressBar/>
-        </StatusBar>        
+        </StatusBar>
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
