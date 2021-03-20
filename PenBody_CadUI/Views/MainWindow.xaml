@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PenBody_CadUI"
+        xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Views/Pen.ico"
         ResizeMode="NoResize"
@@ -17,6 +18,8 @@
     <DockPanel Background="#c4c4c4">
         <TextBlock DockPanel.Dock="Top" Text="Параметры построения" Style="{StaticResource Header}"/>
         <StatusBar DockPanel.Dock="Bottom" Height="20">
+            <fa:ImageAwesome Icon="CheckCircle" Foreground="{Binding OkIconColor}"/>
+            <fa:ImageAwesome Icon="Warning" Foreground="{Binding WarningIconColor}"/>
             <TextBlock Text="{Binding Message}" Style="{StaticResource MsgText}"/>
             <ProgressBar/>
         </StatusBar>        

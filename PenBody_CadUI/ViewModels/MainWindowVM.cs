@@ -6,12 +6,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PenBody_CadUI
 {
     public class MainWindowVM : ViewModelBase
     {
         private bool _isLoading;
+        private SolidColorBrush _okIconColor;
+        private SolidColorBrush _warningIconColor;
         private string _message;
         private RelayCommand _resetCommand;
         private RelayCommand _buildCommand;
@@ -21,6 +24,7 @@ namespace PenBody_CadUI
         private const double MAIN_DIAMETER = 15;
         private const double INNER_DIAMETER = 5;
         private const double RUBBER_DIAMETER = 10;
+        private const string WAITING_MSG = "Введенные данные корректны";
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
@@ -52,6 +56,26 @@ namespace PenBody_CadUI
             }
         }
 
+        public SolidColorBrush OkIconColor
+        {
+            get => _okIconColor;
+            set
+            {
+                _okIconColor = value;
+                OnPropertyChanged(nameof(OkIconColor));
+            }
+        }
+
+        public SolidColorBrush WarningIconColor
+        {
+            get => _warningIconColor;
+            set
+            {
+                _warningIconColor = value;
+                OnPropertyChanged(nameof(WarningIconColor));
+            }
+        }
+
         public RelayCommand ResetCommand
         {
             get
@@ -72,14 +96,12 @@ namespace PenBody_CadUI
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
                         PenVM.UpdateAll();
-                        IsLoading = true;
-                        Message = LOADING_MSG;
+                        SetStatus(States.Loading);
                         await Task.Factory.StartNew(() =>
                         {
                             Thread.Sleep(5000);
                         });
-                        IsLoading = false;
-                        Message = "";
+                        SetStatus(States.Ok);
                     },
                     (obj) =>
                     {
@@ -87,16 +109,41 @@ namespace PenBody_CadUI
                         {
                             if (!IsLoading)
                             {
-                               Message = "";
+                                SetStatus(States.Ok);
                             }
                             
                             return true;
                         }
-                        Message = ERROR_MSG;
+                        SetStatus(States.Warning);
 
                         return false;
                     }
                     ));
+            }
+        }
+
+        private void SetStatus(States status)
+        {
+            switch (status)
+            {
+                case States.Ok:
+                    IsLoading = false;
+                    Message = WAITING_MSG;
+                    OkIconColor = new SolidColorBrush(Colors.Green);
+                    WarningIconColor = new SolidColorBrush(Colors.Gray);
+                    break;
+                case States.Warning:
+                    Message = ERROR_MSG;
+                    WarningIconColor = new SolidColorBrush(Color.FromRgb(247, 198, 0));
+                    OkIconColor = new SolidColorBrush(Colors.Gray);
+                    IsLoading = false;
+                    break;
+                case States.Loading:
+                    IsLoading = true;
+                    Message = LOADING_MSG;
+                    OkIconColor = new SolidColorBrush(Colors.Gray);
+                    WarningIconColor = new SolidColorBrush(Colors.Gray);
+                    break;
             }
         }
 
@@ -107,7 +154,16 @@ namespace PenBody_CadUI
             PenVM.MainDiameter = MAIN_DIAMETER;
             PenVM.InnerDiameter = INNER_DIAMETER;
             PenVM.RubberDiameter = RUBBER_DIAMETER;
-            Message = "";
+            Message = WAITING_MSG;
+            OkIconColor = new SolidColorBrush(Colors.Green);
+            WarningIconColor = new SolidColorBrush(Colors.Gray);
         }
     }
+}
+
+public enum States
+{
+    Ok,
+    Warning,
+    Loading
 }
