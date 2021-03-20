@@ -6,6 +6,17 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip" 
+                        Value="{Binding RelativeSource={RelativeSource Self},
+                                Path=(Validation.Errors)[0].ErrorContent}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="MsgText">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Medium"/>
     </Style>
     <Style TargetType="TextBlock">
         <Setter Property="FontWeight" Value="Medium"/>
@@ -13,16 +24,16 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
     <Style TargetType="Button">
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Width" Value="100"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border CornerRadius="20"
-                                Background="{TemplateBinding Background}">
-
+                            Background="{TemplateBinding Background}">
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

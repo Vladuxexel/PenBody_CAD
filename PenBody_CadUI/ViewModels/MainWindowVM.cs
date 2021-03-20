@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PenBody_CadUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,6 @@ namespace PenBody_CadUI
 {
     public class MainWindowVM : ViewModelBase
     {
-        private double _mainLength;
-        private double _rubberLength;
-        private double _mainDiameter;
-        private double _innerDiameter;
-        private double _rubberDiameter;
         private bool _isLoading;
         private string _message;
         private RelayCommand _resetCommand;
@@ -29,58 +25,21 @@ namespace PenBody_CadUI
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
+        public PenVM PenVM { get; set; }
+
         public MainWindowVM()
         {
+            PenVM = new PenVM();
             SetDefaultParams();
         }
 
-        public double MainLength
+        public string Message
         {
-            get => _mainLength;
+            get => _message;
             set
             {
-                _mainLength = value;
-                OnPropertyChanged(nameof(MainLength));
-            }
-        }
-
-        public double RubberLength
-        {
-            get => _rubberLength;
-            set
-            {
-                _rubberLength = value;
-                OnPropertyChanged(nameof(RubberLength));
-            }
-        }
-
-        public double MainDiameter
-        {
-            get => _mainDiameter;
-            set
-            {
-                _mainDiameter = value;
-                OnPropertyChanged(nameof(MainDiameter));
-            }
-        }
-
-        public double InnerDiameter
-        {
-            get => _innerDiameter;
-            set
-            {
-                _innerDiameter = value;
-                OnPropertyChanged(nameof(InnerDiameter));
-            }
-        }
-
-        public double RubberDiameter
-        {
-            get => _rubberDiameter;
-            set
-            {
-                _rubberDiameter = value;
-                OnPropertyChanged(nameof(RubberDiameter));
+                _message = value;
+                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -91,16 +50,6 @@ namespace PenBody_CadUI
             {
                 _isLoading = value;
                 OnPropertyChanged(nameof(IsLoading));
-            }
-        }
-
-        public string Message
-        {
-            get => _message;
-            set
-            {
-                _message = value;
-                OnPropertyChanged(nameof(Message));
             }
         }
 
@@ -123,6 +72,7 @@ namespace PenBody_CadUI
                 return _buildCommand ??
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
+                        PenVM.UpdateAll();
                         IsLoading = true;
                         Message = LOADING_MSG;
                         await Task.Factory.StartNew(() =>
@@ -131,17 +81,34 @@ namespace PenBody_CadUI
                         });
                         IsLoading = false;
                         Message = WAITING_MSG;
-                    }));
+                    }, 
+                    (obj) => 
+                    {
+                        if (!IsLoading)
+                        {
+                            if (PenVM.Error == null)
+                            {
+                                Message = WAITING_MSG;
+                                return true;
+                            }
+
+                            Message = ERROR_MSG;
+                            return false;
+                        }
+
+                        return false;
+                    }
+                    ));
             }
         }
 
         private void SetDefaultParams()
         {
-            MainLength = MAIN_LENGTH;
-            RubberLength = RUBBER_LENGTH;
-            MainDiameter = MAIN_DIAMETER;
-            InnerDiameter = INNER_DIAMETER;
-            RubberDiameter = RUBBER_DIAMETER;
+            PenVM.MainLength = MAIN_LENGTH;
+            PenVM.RubberLength = RUBBER_LENGTH;
+            PenVM.MainDiameter = MAIN_DIAMETER;
+            PenVM.InnerDiameter = INNER_DIAMETER;
+            PenVM.RubberDiameter = RUBBER_DIAMETER;
             Message = WAITING_MSG;
         }
     }

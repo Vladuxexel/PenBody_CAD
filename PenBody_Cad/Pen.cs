@@ -29,6 +29,12 @@ namespace PenBody_Cad
                     throw new ArgumentException("Длина основной части ручки не должна превышать 70 мм");
                 }
 
+                if (value < 2 * RubberLength)
+                {
+                    throw new ArgumentException(
+                        "Длина основной части ручки должна быть минимум в 2 раза больше части для резинки");
+                }
+
                 _mainLength = value;
             }
         }
