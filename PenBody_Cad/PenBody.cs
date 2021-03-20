@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PenBody_Cad
 {
-    public class Pen
+    public class PenBoby
     {
         private double _mainLength;
         private double _rubberLength;

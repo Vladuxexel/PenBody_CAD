@@ -1,4 +1,5 @@
-﻿using PenBody_CadUI.ViewModels;
+﻿using PenBody_Cad;
+using PenBody_CadUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,11 @@ namespace PenBody_CadUI
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
-        public PenVM PenVM { get; set; }
+        public PenBodyVM PenBodyVM { get; set; }
 
         public MainWindowVM()
         {
-            PenVM = new PenVM();
+            PenBodyVM = new PenBodyVM();
             SetDefaultParams();
         }
 
@@ -95,26 +96,27 @@ namespace PenBody_CadUI
                 return _buildCommand ??
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
-                        PenVM.UpdateAll();
-                        SetStatus(States.Loading);
+                        PenBodyVM.UpdateAll();
+                        SetState(States.Loading);
                         await Task.Factory.StartNew(() =>
                         {
                             Thread.Sleep(5000);
+                            var builder = new PenBodyBuilder(CreatePenBodyModel());
                         });
-                        SetStatus(States.Ok);
+                        SetState(States.Ok);
                     },
                     (obj) =>
                     {
-                        if (PenVM.Error == null)
+                        if (PenBodyVM.Error == null)
                         {
                             if (!IsLoading)
                             {
-                                SetStatus(States.Ok);
+                                SetState(States.Ok);
                             }
                             
                             return true;
                         }
-                        SetStatus(States.Warning);
+                        SetState(States.Warning);
 
                         return false;
                     }
@@ -122,7 +124,19 @@ namespace PenBody_CadUI
             }
         }
 
-        private void SetStatus(States status)
+        private PenBoby CreatePenBodyModel()
+        {
+            return new PenBoby()
+            {
+                MainLength = PenBodyVM.MainLength,
+                RubberLength = PenBodyVM.RubberLength,
+                MainDiameter = PenBodyVM.MainDiameter,
+                RubberDiameter = PenBodyVM.RubberDiameter,
+                InnerDiameter = PenBodyVM.InnerDiameter
+            };
+        }
+
+        private void SetState(States status)
         {
             switch (status)
             {
@@ -149,11 +163,11 @@ namespace PenBody_CadUI
 
         private void SetDefaultParams()
         {
-            PenVM.MainLength = MAIN_LENGTH;
-            PenVM.RubberLength = RUBBER_LENGTH;
-            PenVM.MainDiameter = MAIN_DIAMETER;
-            PenVM.InnerDiameter = INNER_DIAMETER;
-            PenVM.RubberDiameter = RUBBER_DIAMETER;
+            PenBodyVM.MainLength = MAIN_LENGTH;
+            PenBodyVM.RubberLength = RUBBER_LENGTH;
+            PenBodyVM.MainDiameter = MAIN_DIAMETER;
+            PenBodyVM.InnerDiameter = INNER_DIAMETER;
+            PenBodyVM.RubberDiameter = RUBBER_DIAMETER;
             Message = WAITING_MSG;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);

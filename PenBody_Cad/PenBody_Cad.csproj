@@ -31,6 +31,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="KAPITypes">
+      <HintPath>..\KompasAPI\KAPITypes.dll</HintPath>
+    </Reference>
+    <Reference Include="Kompas6API5">
+      <HintPath>..\KompasAPI\Kompas6API5.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Kompas6Constants">
+      <HintPath>..\KompasAPI\Kompas6Constants.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Kompas6Constants3D">
+      <HintPath>..\KompasAPI\Kompas6Constants3D.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="KompasAPI7">
+      <HintPath>..\KompasAPI\KompasAPI7.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pen.cs" />
+    <Compile Include="CadConnector.cs" />
+    <Compile Include="PenBody.cs" />
+    <Compile Include="PenBodyBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

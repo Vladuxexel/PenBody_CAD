@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace PenBody_CadUI.ViewModels
 {
-    public class PenVM : ViewModelBase, IDataErrorInfo
+    public class PenBodyVM : ViewModelBase, IDataErrorInfo
     {
         private double _mainLength;
         private double _rubberLength;

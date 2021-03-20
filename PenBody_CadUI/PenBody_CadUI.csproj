@@ -61,7 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\PenVM.cs" />
+    <Compile Include="ViewModels\PenBodyVM.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ReverseBoolConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -116,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Views\Pen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PenBody_Cad\PenBody_Cad.csproj">
+      <Project>{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}</Project>
+      <Name>PenBody_Cad</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
