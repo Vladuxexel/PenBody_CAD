@@ -19,13 +19,14 @@ namespace PenBody_CadUI
         private string _message;
         private RelayCommand _resetCommand;
         private RelayCommand _buildCommand;
+        private PenBodyBuilder _penBodyBuilder;
 
         private const double MAIN_LENGTH = 40;
         private const double RUBBER_LENGTH = 20;
         private const double MAIN_DIAMETER = 15;
         private const double INNER_DIAMETER = 5;
         private const double RUBBER_DIAMETER = 10;
-        private const string WAITING_MSG = "Введенные данные корректны";
+        private const string WAITING_MSG = "Плагин готов к построению";
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
@@ -35,6 +36,7 @@ namespace PenBody_CadUI
         {
             PenBodyVM = new PenBodyVM();
             SetDefaultParams();
+            _penBodyBuilder = new PenBodyBuilder();
         }
 
         public string Message
@@ -100,8 +102,14 @@ namespace PenBody_CadUI
                         SetState(States.Loading);
                         await Task.Factory.StartNew(() =>
                         {
-                            Thread.Sleep(5000);
-                            var builder = new PenBodyBuilder(CreatePenBodyModel());
+                            try
+                            {
+                                _penBodyBuilder.Build(CreatePenBodyModel());
+                            }
+                            catch(ArgumentException e)
+                            {
+                                MessageBox.Show(e.Message, "Предупреждение");
+                            }
                         });
                         SetState(States.Ok);
                     },
@@ -124,9 +132,9 @@ namespace PenBody_CadUI
             }
         }
 
-        private PenBoby CreatePenBodyModel()
+        private PenBody CreatePenBodyModel()
         {
-            return new PenBoby()
+            return new PenBody()
             {
                 MainLength = PenBodyVM.MainLength,
                 RubberLength = PenBodyVM.RubberLength,

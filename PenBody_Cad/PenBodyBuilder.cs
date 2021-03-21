@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kompas6API5;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,12 @@ namespace PenBody_Cad
 {
     public class PenBodyBuilder
     {
-        public PenBodyBuilder(PenBoby penBody)
+        public void Build(PenBody penBody)
         {
-
+            var cadConnector = new CadConnector();
+            var document = cadConnector.Connect();
+            document.Create(false, true);
+            document = (ksDocument3D)cadConnector.Kompas.ActiveDocument3D();
         }
     }
 }
