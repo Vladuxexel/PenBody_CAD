@@ -1,22 +1,23 @@
 ﻿using Kompas6API5;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace PenBody_Cad
 {
+    /// <summary>
+    /// Класс управления подключением к Компас 3d.
+    /// </summary>
     public class CadConnector
     {
         /// <summary>
-        /// Объект када
+        /// Объект када.
         /// </summary>
         public KompasObject Kompas { get; set; }
 
-        public ksDocument3D Connect()
+        /// <summary>
+        /// Запуск Компас 3d и создание
+        /// </summary>
+        /// <returns></returns>
+        public void Connect()
         {
             if (Kompas == null)
             {
@@ -29,8 +30,6 @@ namespace PenBody_Cad
                 Kompas.Visible = true;
                 Kompas.ActivateControllerAPI();
             }
-
-            return (ksDocument3D)Kompas.Document3D();
         }
     }
 }
