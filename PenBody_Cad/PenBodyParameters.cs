@@ -2,14 +2,39 @@
 
 namespace PenBody_Cad
 {
-    public class PenBody
+    /// <summary>
+    /// Класс параметров корпуса пишущей ручки.
+    /// </summary>
+    public class PenBodyParameters
     {
+        /// <summary>
+        /// Длина основной части.
+        /// </summary>
         private double _mainLength;
+
+        /// <summary>
+        /// Длина части для резинки.
+        /// </summary>
         private double _rubberLength;
+
+        /// <summary>
+        /// Диаметр ручки.
+        /// </summary>
         private double _mainDiameter;
+
+        /// <summary>
+        /// Внутренний диаметр.
+        /// </summary>
         private double _innerDiameter;
+
+        /// <summary>
+        /// Диаметр части для резинки.
+        /// </summary>
         private double _rubberDiameter;
 
+        /// <summary>
+        /// Свойство длины основной части ручки.
+        /// </summary>
         public double MainLength
         {
             get => _mainLength;
@@ -35,6 +60,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство длины части для резинки.
+        /// </summary>
         public double RubberLength
         {
             get => _rubberLength;
@@ -59,6 +87,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство диаметра ручки.
+        /// </summary>
         public double MainDiameter
         {
             get => _mainDiameter;
@@ -78,6 +109,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство внутреннего диаметра ручки.
+        /// </summary>
         public double InnerDiameter
         {
             get => _innerDiameter;
@@ -107,6 +141,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство длины части для резинки.
+        /// </summary>
         public double RubberDiameter
         {
             get => _rubberDiameter;

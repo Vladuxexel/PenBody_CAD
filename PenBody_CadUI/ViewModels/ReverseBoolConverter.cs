@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace PenBody_CadUI
 {
+    /// <summary>
+    /// Конвертер логического значения на противоположное.
+    /// </summary>
     public class ReverseBoolConverter : IValueConverter
     {
         /// <summary>

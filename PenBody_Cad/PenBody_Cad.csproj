@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CadConnector.cs" />
-    <Compile Include="PenBody.cs" />
+    <Compile Include="PenBodyParameters.cs" />
     <Compile Include="PenBodyBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

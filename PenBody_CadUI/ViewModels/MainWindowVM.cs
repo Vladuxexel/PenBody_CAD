@@ -1,44 +1,110 @@
 ﻿using PenBody_Cad;
 using PenBody_CadUI.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
 namespace PenBody_CadUI
 {
+    /// <summary>
+    /// Вью-модель окна.
+    /// </summary>
     public class MainWindowVM : ViewModelBase
     {
+        /// <summary>
+        /// Флаг состояния загрузки Компас-3D.
+        /// </summary>
         private bool _isLoading;
+
+        /// <summary>
+        /// Цвет иконки "Ок".
+        /// </summary>
         private SolidColorBrush _okIconColor;
+
+        /// <summary>
+        /// Цвет иконки "Предупреждение".
+        /// </summary>
         private SolidColorBrush _warningIconColor;
+
+        /// <summary>
+        /// Сообщение состояния плагина.
+        /// </summary>
         private string _message;
+
+        /// <summary>
+        /// Команда сброса параметров до стандартных.
+        /// </summary>
         private RelayCommand _resetCommand;
+
+        /// <summary>
+        /// Команда запуска построения детали.
+        /// </summary>
         private RelayCommand _buildCommand;
+
+        /// <summary>
+        /// Поле для вызова метода построения детали.
+        /// </summary>
         private PenBodyBuilder _penBodyBuilder;
 
+        /// <summary>
+        /// Длина основной части ручки по умолчанию.
+        /// </summary>
         private const double MAIN_LENGTH = 40;
+
+        /// <summary>
+        /// Длина части для резинки по умолчанию.
+        /// </summary>
         private const double RUBBER_LENGTH = 20;
+
+        /// <summary>
+        /// Диаметр основной ручки по умолчанию.
+        /// </summary>
         private const double MAIN_DIAMETER = 15;
+
+        /// <summary>
+        /// Внутренний диаметр ручки по умолчанию.
+        /// </summary>
         private const double INNER_DIAMETER = 5;
+
+        /// <summary>
+        /// Диаметр части для резинки по умолчанию.
+        /// </summary>
         private const double RUBBER_DIAMETER = 10;
+
+        /// <summary>
+        /// Сообщение нормального состояния плагина.
+        /// </summary>
         private const string WAITING_MSG = "Плагин готов к построению";
+
+        /// <summary>
+        /// Сообщение состояния плагина при загрузке.
+        /// </summary>
         private const string LOADING_MSG = "Запуск КОМПАС-3D...";
+
+        /// <summary>
+        /// Сообщение состояния плагина при ошибке.
+        /// </summary>
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
-        public PenBodyVM PenBodyVM { get; set; }
+        /// <summary>
+        /// Свойство валидации параметров модели.
+        /// </summary>
+        public PenBodyParametersVM PenBodyParametersVM { get; set; }
 
+        /// <summary>
+        /// Комструктор класса вью-модели окна.
+        /// </summary>
         public MainWindowVM()
         {
-            PenBodyVM = new PenBodyVM();
+            PenBodyParametersVM = new PenBodyParametersVM();
             SetDefaultParams();
             _penBodyBuilder = new PenBodyBuilder();
         }
 
+        /// <summary>
+        /// Свойство сообщения состояния плагина.
+        /// </summary>
         public string Message
         {
             get => _message;
@@ -49,6 +115,9 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Свойство флага состояния загрузки Компас-3D.
+        /// </summary>
         public bool IsLoading
         {
             get => _isLoading;
@@ -59,6 +128,9 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Свойство цвета иконки "Ок".
+        /// </summary>
         public SolidColorBrush OkIconColor
         {
             get => _okIconColor;
@@ -69,6 +141,9 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Свойство цвета иконки "Предупреждение".
+        /// </summary>
         public SolidColorBrush WarningIconColor
         {
             get => _warningIconColor;
@@ -79,6 +154,9 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Свойство команды сброса параметров до стандартных.
+        /// </summary>
         public RelayCommand ResetCommand
         {
             get
@@ -91,6 +169,9 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Свойство команды запуска построения детали.
+        /// </summary>
         public RelayCommand BuildCommand
         {
             get
@@ -98,7 +179,7 @@ namespace PenBody_CadUI
                 return _buildCommand ??
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
-                        PenBodyVM.UpdateAll();
+                        PenBodyParametersVM.UpdateAll();
                         SetState(States.Loading);
                         await Task.Factory.StartNew(() =>
                         {
@@ -115,7 +196,7 @@ namespace PenBody_CadUI
                     },
                     (obj) =>
                     {
-                        if (PenBodyVM.Error == null)
+                        if (PenBodyParametersVM.Error == null)
                         {
                             if (!IsLoading)
                             {
@@ -132,18 +213,26 @@ namespace PenBody_CadUI
             }
         }
 
-        private PenBody CreatePenBodyModel()
+        /// <summary>
+        /// Метод создания объекта параметров модели.
+        /// </summary>
+        /// <returns>Модель с набором параметров.</returns>
+        private PenBodyParameters CreatePenBodyModel()
         {
-            return new PenBody()
+            return new PenBodyParameters()
             {
-                MainLength = PenBodyVM.MainLength,
-                RubberLength = PenBodyVM.RubberLength,
-                MainDiameter = PenBodyVM.MainDiameter,
-                RubberDiameter = PenBodyVM.RubberDiameter,
-                InnerDiameter = PenBodyVM.InnerDiameter
+                MainLength = PenBodyParametersVM.MainLength,
+                RubberLength = PenBodyParametersVM.RubberLength,
+                MainDiameter = PenBodyParametersVM.MainDiameter,
+                RubberDiameter = PenBodyParametersVM.RubberDiameter,
+                InnerDiameter = PenBodyParametersVM.InnerDiameter
             };
         }
 
+        /// <summary>
+        /// Метод установки состояния плагина.
+        /// </summary>
+        /// <param name="status">Состояние.</param>
         private void SetState(States status)
         {
             switch (status)
@@ -169,13 +258,16 @@ namespace PenBody_CadUI
             }
         }
 
+        /// <summary>
+        /// Метод сброса параметров модели до стандартных.
+        /// </summary>
         private void SetDefaultParams()
         {
-            PenBodyVM.MainLength = MAIN_LENGTH;
-            PenBodyVM.RubberLength = RUBBER_LENGTH;
-            PenBodyVM.MainDiameter = MAIN_DIAMETER;
-            PenBodyVM.InnerDiameter = INNER_DIAMETER;
-            PenBodyVM.RubberDiameter = RUBBER_DIAMETER;
+            PenBodyParametersVM.MainLength = MAIN_LENGTH;
+            PenBodyParametersVM.RubberLength = RUBBER_LENGTH;
+            PenBodyParametersVM.MainDiameter = MAIN_DIAMETER;
+            PenBodyParametersVM.InnerDiameter = INNER_DIAMETER;
+            PenBodyParametersVM.RubberDiameter = RUBBER_DIAMETER;
             Message = WAITING_MSG;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);
@@ -183,6 +275,9 @@ namespace PenBody_CadUI
     }
 }
 
+/// <summary>
+/// Перечисление состояний плагина.
+/// </summary>
 public enum States
 {
     Ok,

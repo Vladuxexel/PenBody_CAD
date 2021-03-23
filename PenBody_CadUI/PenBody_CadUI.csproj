@@ -61,7 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\PenBodyVM.cs" />
+    <Compile Include="ViewModels\PenBodyParametersVM.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ReverseBoolConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
