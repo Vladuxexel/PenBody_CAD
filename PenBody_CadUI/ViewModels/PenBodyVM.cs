@@ -135,9 +135,9 @@ namespace PenBody_CadUI.ViewModels
                         }
                         break;
                     case "RubberDiameter":
-                        if (RubberDiameter < 10)
+                        if (RubberDiameter < 7)
                         {
-                            error = "Диаметр части для резинки должен быть не меньше 10 мм";
+                            error = "Диаметр части для резинки должен быть не меньше 7 мм";
                         }
                         else if (RubberDiameter > 18)
                         {
@@ -146,6 +146,10 @@ namespace PenBody_CadUI.ViewModels
                         else if (RubberDiameter > MainDiameter)
                         {
                             error = "Диаметр части для резинки не должен быть больше диаметра самой ручки";
+                        }
+                        else if (MainDiameter - RubberDiameter < 2)
+                        {
+                            error = "Диаметр части для резинки должен быть минимум на 2 мм меньше диаметра основной части";
                         }
                         break;
                 }

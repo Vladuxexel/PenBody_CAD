@@ -112,9 +112,9 @@ namespace PenBody_Cad
             get => _rubberDiameter;
             set
             {
-                if (value < 10)
+                if (value < 7)
                 {
-                    throw new ArgumentException("Диаметр части для резинки должен быть не меньше 10 мм");
+                    throw new ArgumentException("Диаметр части для резинки должен быть не меньше 7 мм");
                 }
 
                 if (value > 18)
@@ -125,6 +125,11 @@ namespace PenBody_Cad
                 if (value > MainDiameter)
                 {
                     throw new ArgumentException("Диаметр части для резинки не должен быть больше диаметра самой ручки");
+                }
+
+                if (MainDiameter - value < 2)
+                {
+                    throw new ArgumentException("Диаметр части для резинки должен быть минимум на 2 мм меньше диаметра основной части");
                 }
 
                 _rubberDiameter = value;
