@@ -106,7 +106,7 @@ namespace PenBody_CadUI.ViewModels
         /// Реализация интерфейса IDataErrorInfo.
         /// </summary>
         /// <param name="propertyName">Имя валидируемого свойства.</param>
-        /// <returns></returns>
+        /// <returns>Текст ошибки.</returns>
         public string this[string propertyName]
         {
             get
