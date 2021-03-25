@@ -13,41 +13,6 @@ namespace PenBody_CadUI
     public class MainWindowVM : ViewModelBase
     {
         /// <summary>
-        /// Флаг состояния загрузки Компас-3D.
-        /// </summary>
-        private bool _isLoading;
-
-        /// <summary>
-        /// Цвет иконки "Ок".
-        /// </summary>
-        private SolidColorBrush _okIconColor;
-
-        /// <summary>
-        /// Цвет иконки "Предупреждение".
-        /// </summary>
-        private SolidColorBrush _warningIconColor;
-
-        /// <summary>
-        /// Сообщение состояния плагина.
-        /// </summary>
-        private string _message;
-
-        /// <summary>
-        /// Команда сброса параметров до стандартных.
-        /// </summary>
-        private RelayCommand _resetCommand;
-
-        /// <summary>
-        /// Команда запуска построения детали.
-        /// </summary>
-        private RelayCommand _buildCommand;
-
-        /// <summary>
-        /// Поле для вызова метода построения детали.
-        /// </summary>
-        private PenBodyBuilder _penBodyBuilder;
-
-        /// <summary>
         /// Длина основной части ручки по умолчанию.
         /// </summary>
         private const double MAIN_LENGTH = 40;
@@ -86,6 +51,41 @@ namespace PenBody_CadUI
         /// Сообщение состояния плагина при ошибке.
         /// </summary>
         private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
+
+        /// <summary>
+        /// Флаг состояния загрузки Компас-3D.
+        /// </summary>
+        private bool _isLoading;
+
+        /// <summary>
+        /// Цвет иконки "Ок".
+        /// </summary>
+        private SolidColorBrush _okIconColor;
+
+        /// <summary>
+        /// Цвет иконки "Предупреждение".
+        /// </summary>
+        private SolidColorBrush _warningIconColor;
+
+        /// <summary>
+        /// Сообщение состояния плагина.
+        /// </summary>
+        private string _message;
+
+        /// <summary>
+        /// Команда сброса параметров до стандартных.
+        /// </summary>
+        private RelayCommand _resetCommand;
+
+        /// <summary>
+        /// Команда запуска построения детали.
+        /// </summary>
+        private RelayCommand _buildCommand;
+
+        /// <summary>
+        /// Поле для вызова метода построения детали.
+        /// </summary>
+        private PenBodyBuilder _penBodyBuilder;
 
         /// <summary>
         /// Свойство валидации параметров модели.
