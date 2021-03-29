@@ -189,22 +189,6 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// Метод создания объекта параметров модели.
-        /// </summary>
-        /// <returns>Модель с набором параметров.</returns>
-        private PenBodyParameters CreatePenBodyModel()
-        {
-            return new PenBodyParameters()
-            {
-                MainLength = double.Parse(PenBodyParametersVM.MainLength),
-                RubberLength = double.Parse(PenBodyParametersVM.RubberLength),
-                MainDiameter = double.Parse(PenBodyParametersVM.MainDiameter),
-                RubberDiameter = double.Parse(PenBodyParametersVM.RubberDiameter),
-                InnerDiameter = double.Parse(PenBodyParametersVM.InnerDiameter)
-            };
-        }
-
-        /// <summary>
         /// Метод установки состояния плагина.
         /// </summary>
         /// <param name="status">Состояние.</param>
