@@ -42,25 +42,25 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Длина основной части (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="0"
+                    <TextBox Grid.Column="1" Grid.Row="0" MaxLength="7"
                              Text="{Binding PenBodyParametersVM.MainLength,
-                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Длина части для резинки (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="1"
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="7"
                              Text="{Binding PenBodyParametersVM.RubberLength,
-                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Диаметр (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="2"
+                    <TextBox Grid.Column="1" Grid.Row="2" MaxLength="7"
                              Text="{Binding PenBodyParametersVM.MainDiameter, 
-                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Внутренний диаметр (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="3"
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="7"
                              Text="{Binding PenBodyParametersVM.InnerDiameter, 
-                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Диаметр части для резинки (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="4"
+                    <TextBox Grid.Column="1" Grid.Row="4" MaxLength="7"
                              Text="{Binding PenBodyParametersVM.RubberDiameter,
-                                    UpdateSourceTrigger=LostFocus, ValidatesOnDataErrors=True}"/>
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 </Grid>
             </Border>
             <Button Grid.Row="1" Content="Сбросить" HorizontalAlignment="Left"

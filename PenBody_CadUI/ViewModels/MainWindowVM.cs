@@ -13,31 +13,6 @@ namespace PenBody_CadUI
     public class MainWindowVM : ViewModelBase
     {
         /// <summary>
-        /// Длина основной части ручки по умолчанию.
-        /// </summary>
-        private const double MAIN_LENGTH = 40;
-
-        /// <summary>
-        /// Длина части для резинки по умолчанию.
-        /// </summary>
-        private const double RUBBER_LENGTH = 20;
-
-        /// <summary>
-        /// Диаметр основной ручки по умолчанию.
-        /// </summary>
-        private const double MAIN_DIAMETER = 15;
-
-        /// <summary>
-        /// Внутренний диаметр ручки по умолчанию.
-        /// </summary>
-        private const double INNER_DIAMETER = 5;
-
-        /// <summary>
-        /// Диаметр части для резинки по умолчанию.
-        /// </summary>
-        private const double RUBBER_DIAMETER = 10;
-
-        /// <summary>
         /// Сообщение нормального состояния плагина.
         /// </summary>
         private const string WAITING_MSG = "Плагин готов к построению";
@@ -93,7 +68,7 @@ namespace PenBody_CadUI
         public PenBodyParametersVM PenBodyParametersVM { get; set; }
 
         /// <summary>
-        /// Комструктор класса вью-модели окна.
+        /// Конструктор класса вью-модели окна.
         /// </summary>
         public MainWindowVM()
         {
@@ -185,7 +160,7 @@ namespace PenBody_CadUI
                         {
                             try
                             {
-                                _penBodyBuilder.Build(CreatePenBodyModel());
+                                _penBodyBuilder.Build(PenBodyParametersVM.GetValidModel());
                             }
                             catch(ArgumentException e)
                             {
@@ -221,11 +196,11 @@ namespace PenBody_CadUI
         {
             return new PenBodyParameters()
             {
-                MainLength = PenBodyParametersVM.MainLength,
-                RubberLength = PenBodyParametersVM.RubberLength,
-                MainDiameter = PenBodyParametersVM.MainDiameter,
-                RubberDiameter = PenBodyParametersVM.RubberDiameter,
-                InnerDiameter = PenBodyParametersVM.InnerDiameter
+                MainLength = double.Parse(PenBodyParametersVM.MainLength),
+                RubberLength = double.Parse(PenBodyParametersVM.RubberLength),
+                MainDiameter = double.Parse(PenBodyParametersVM.MainDiameter),
+                RubberDiameter = double.Parse(PenBodyParametersVM.RubberDiameter),
+                InnerDiameter = double.Parse(PenBodyParametersVM.InnerDiameter)
             };
         }
 
@@ -263,11 +238,7 @@ namespace PenBody_CadUI
         /// </summary>
         private void SetDefaultParams()
         {
-            PenBodyParametersVM.MainLength = MAIN_LENGTH;
-            PenBodyParametersVM.RubberLength = RUBBER_LENGTH;
-            PenBodyParametersVM.MainDiameter = MAIN_DIAMETER;
-            PenBodyParametersVM.InnerDiameter = INNER_DIAMETER;
-            PenBodyParametersVM.RubberDiameter = RUBBER_DIAMETER;
+            PenBodyParametersVM.SetToDefault();
             Message = WAITING_MSG;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);

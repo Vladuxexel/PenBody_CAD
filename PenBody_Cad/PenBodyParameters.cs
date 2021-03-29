@@ -137,6 +137,11 @@ namespace PenBody_Cad
                     throw new ArgumentException("Внутренний диаметр не должен быть больше диаметра части для резинки");
                 }
 
+                if (RubberDiameter - value < 2)
+                {
+                    throw new ArgumentException("Внутренний диаметр должен быть минимум на 2 мм меньше диаметра части для резинки");
+                }
+
                 _innerDiameter = value;
             }
         }

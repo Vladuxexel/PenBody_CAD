@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using PenBody_Cad;
+using System;
+using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace PenBody_CadUI.ViewModels
 {
@@ -8,29 +11,64 @@ namespace PenBody_CadUI.ViewModels
     public class PenBodyParametersVM : ViewModelBase, IDataErrorInfo
     {
         /// <summary>
+        /// Длина основной части ручки по умолчанию.
+        /// </summary>
+        private const string MAIN_LENGTH = "40";
+
+        /// <summary>
+        /// Длина части для резинки по умолчанию.
+        /// </summary>
+        private const string RUBBER_LENGTH = "20";
+
+        /// <summary>
+        /// Диаметр основной ручки по умолчанию.
+        /// </summary>
+        private const string MAIN_DIAMETER = "15";
+
+        /// <summary>
+        /// Внутренний диаметр ручки по умолчанию.
+        /// </summary>
+        private const string INNER_DIAMETER = "5";
+
+        /// <summary>
+        /// Диаметр части для резинки по умолчанию.
+        /// </summary>
+        private const string RUBBER_DIAMETER = "10";
+
+        /// <summary>
+        /// Регулярное выражения для числа типа double.
+        /// </summary>
+        private const string _doubleRegex = "^[0-9]*[.,]?[0-9]+$";
+
+        /// <summary>
+        /// Поле с моделью.
+        /// </summary>
+        private PenBodyParameters _penBodyParameters;
+
+        /// <summary>
         /// Длина основной части.
         /// </summary>
-        private double _mainLength;
+        private string _mainLength;
 
         /// <summary>
         /// Длина части для резинки.
         /// </summary>
-        private double _rubberLength;
+        private string _rubberLength;
 
         /// <summary>
         /// Диаметр ручки.
         /// </summary>
-        private double _mainDiameter;
+        private string _mainDiameter;
 
         /// <summary>
         /// Внутренний диаметр.
         /// </summary>
-        private double _innerDiameter;
+        private string _innerDiameter;
 
         /// <summary>
         /// Диаметр части для резинки.
         /// </summary>
-        private double _rubberDiameter;
+        private string _rubberDiameter;
 
         /// <summary>
         /// Свойство для вывода ошибки.
@@ -40,12 +78,12 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство длины основной части ручки.
         /// </summary>
-        public double MainLength
+        public string MainLength
         {
             get => _mainLength;
             set
             {
-                _mainLength = value;
+                _mainLength = DotToComma(value);
                 UpdateAll();
             }
         }
@@ -53,12 +91,12 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство длины части для резинки.
         /// </summary>
-        public double RubberLength
+        public string RubberLength
         {
             get => _rubberLength;
             set
             {
-                _rubberLength = value;
+                _rubberLength = DotToComma(value);
                 UpdateAll();
             }
         }
@@ -66,12 +104,12 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство диаметра ручки.
         /// </summary>
-        public double MainDiameter
+        public string MainDiameter
         {
             get => _mainDiameter;
             set
             {
-                _mainDiameter = value;
+                _mainDiameter = DotToComma(value);
                 UpdateAll();
             }
         }
@@ -79,12 +117,12 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство внутреннего диаметра ручки.
         /// </summary>
-        public double InnerDiameter
+        public string InnerDiameter
         {
             get => _innerDiameter;
             set
             {
-                _innerDiameter = value;
+                _innerDiameter = DotToComma(value);
                 UpdateAll();
             }
         }
@@ -92,14 +130,29 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство длины части для резинки.
         /// </summary>
-        public double RubberDiameter
+        public string RubberDiameter
         {
             get => _rubberDiameter;
             set
             {
-                _rubberDiameter = value;
+                _rubberDiameter = DotToComma(value);
                 UpdateAll();
             }
+        }
+
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        public PenBodyParametersVM()
+        {
+            _penBodyParameters = new PenBodyParameters
+            {
+                MainLength = double.Parse(MAIN_LENGTH),
+                RubberLength = double.Parse(RUBBER_LENGTH),
+                MainDiameter = double.Parse(MAIN_DIAMETER),
+                RubberDiameter = double.Parse(RUBBER_DIAMETER),
+                InnerDiameter = double.Parse(INNER_DIAMETER)
+            };
         }
 
         /// <summary>
@@ -116,85 +169,108 @@ namespace PenBody_CadUI.ViewModels
                 switch (propertyName)
                 {
                     case "MainLength":
-                        if (MainLength < 20)
+                        if (MainLength.Trim() == "")
                         {
-                            error = "Длина основной части ручки должна быть не меньше 20 мм";
+                            error = "Необходимо ввести число";
                         }
-                        else if (MainLength > 70)
+                        else if (!Regex.IsMatch(MainLength, _doubleRegex))
                         {
-                            error = "Длина основной части ручки не должна превышать 70 мм";
+                            error = "Неверный формат числа";
                         }
-                        else if (MainLength < 2 * RubberLength)
+                        else
                         {
-                            error = "Длина основной части ручки должна быть минимум в 2 раза больше части для резинки";
+                            try
+                            {
+                                _penBodyParameters.MainLength = double.Parse(MainLength);
+                            }
+                            catch (Exception e)
+                            {
+                                error = e.Message;
+                            }
                         }
                         break;
                     case "RubberLength":
-                        if (RubberLength < 15)
+                        if (RubberLength.Trim() == "")
                         {
-                            error = "Длина части для резинки должна быть не меньше 15 мм";
+                            error = "Необходимо ввести число";
                         }
-                        else if (RubberLength > 35)
+                        else if (!Regex.IsMatch(RubberLength, _doubleRegex))
                         {
-                            error = "Длина части для резинки не должна превышать 35 мм";
+                            error = "Неверный формат числа";
                         }
-                        else if (RubberLength > 0.5 * MainLength)
+                        else
                         {
-                            error = "Длина части для резинки не должна превышать половину длины основной части";
+                            try
+                            {
+                                _penBodyParameters.RubberLength = double.Parse(RubberLength);
+                            }
+                            catch (Exception e)
+                            {
+                                error = e.Message;
+                            }
                         }
                         break;
                     case "MainDiameter":
-                        if (MainDiameter < 10)
+                        if (MainDiameter.Trim() == "")
                         {
-                            error = "Диаметр ручки должен быть не меньше 10 мм";
+                            error = "Необходимо ввести число";
                         }
-                        else if (MainDiameter > 20)
+                        else if (!Regex.IsMatch(MainDiameter, _doubleRegex))
                         {
-                            error = "Диаметр ручки не должен превышать 20 мм";
+                            error = "Неверный формат числа";
                         }
-                        else if (MainDiameter < RubberDiameter)
+                        else
                         {
-                            error = "Диаметр ручки не должен быть меньше диаметра части для резинки";
-                        }
-                        else if (MainDiameter < InnerDiameter)
-                        {
-                            error = "Диаметр ручки не должен быть меньше внутреннего диаметра";
+                            try
+                            {
+                                _penBodyParameters.MainDiameter = double.Parse(MainDiameter);
+                            }
+                            catch (Exception e)
+                            {
+                                error = e.Message;
+                            }
                         }
                         break;
                     case "InnerDiameter":
-                        if (InnerDiameter < 2)
+                        if (InnerDiameter.Trim() == "")
                         {
-                            error = "Внутренний диаметр ручки должен быть не меньше 2 мм";
+                            error = "Необходимо ввести число";
                         }
-                        else if (InnerDiameter > 10)
+                        else if (!Regex.IsMatch(InnerDiameter, _doubleRegex))
                         {
-                            error = "Внутренний диаметр ручки не должен превышать 10 мм";
+                            error = "Неверный формат числа";
                         }
-                        else if (InnerDiameter > MainDiameter)
+                        else
                         {
-                            error = "Внутренний диаметр не должен быть больше диаметра самой ручки";
-                        }
-                        else if (InnerDiameter > RubberDiameter)
-                        {
-                            error = "Внутренний диаметр не должен быть больше диаметра части для резинки";
+                            try
+                            {
+                                _penBodyParameters.InnerDiameter = double.Parse(InnerDiameter);
+                            }
+                            catch (Exception e)
+                            {
+                                error = e.Message;
+                            }
                         }
                         break;
                     case "RubberDiameter":
-                        if (RubberDiameter < 7)
+                        if (RubberDiameter.Trim() == "")
                         {
-                            error = "Диаметр части для резинки должен быть не меньше 7 мм";
+                            error = "Необходимо ввести число";
                         }
-                        else if (RubberDiameter > 18)
+                        else if (!Regex.IsMatch(RubberDiameter, _doubleRegex))
                         {
-                            error = "Диаметр части для резинки не должен превышать 18 мм";
+                            error = "Неверный формат числа";
                         }
-                        else if (RubberDiameter > MainDiameter)
+                        else
                         {
-                            error = "Диаметр части для резинки не должен быть больше диаметра самой ручки";
-                        }
-                        else if (MainDiameter - RubberDiameter < 2)
-                        {
-                            error = "Диаметр части для резинки должен быть минимум на 2 мм меньше диаметра основной части";
+                            try
+                            {
+                                _penBodyParameters.RubberDiameter = double.Parse(RubberDiameter);
+                            }
+                            catch (Exception e)
+                            {
+                                error = e.Message;
+                            }
                         }
                         break;
                 }
@@ -216,5 +292,30 @@ namespace PenBody_CadUI.ViewModels
             OnPropertyChanged(nameof(InnerDiameter));
             OnPropertyChanged(nameof(RubberDiameter));
         }
+
+        /// <summary>
+        /// Метод установки значений по умолчанию.
+        /// </summary>
+        public void SetToDefault()
+        {
+            MainLength = MAIN_LENGTH;
+            RubberLength = RUBBER_LENGTH;
+            MainDiameter = MAIN_DIAMETER;
+            InnerDiameter = INNER_DIAMETER;
+            RubberDiameter = RUBBER_DIAMETER;
+        }
+
+        /// <summary>
+        /// Получить валидную модель.
+        /// </summary>
+        /// <returns>Валидная модель.</returns>
+        public PenBodyParameters GetValidModel() => _penBodyParameters;
+
+        /// <summary>
+        /// Метод для замены точки на запятую.
+        /// </summary>
+        /// <param name="str">Входная строка.</param>
+        /// <returns>Строка с выполненной заменой.</returns>
+        private string DotToComma(string str) => str.Replace('.', ',').Trim();
     }
 }
