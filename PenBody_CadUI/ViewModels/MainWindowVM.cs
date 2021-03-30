@@ -155,7 +155,7 @@ namespace PenBody_CadUI
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
                         PenBodyParametersVM.UpdateAll();
-                        SetState(States.Loading);
+                        SetState(State.Loading);
                         await Task.Factory.StartNew(() =>
                         {
                             try
@@ -167,7 +167,7 @@ namespace PenBody_CadUI
                                 MessageBox.Show(e.Message, "Предупреждение");
                             }
                         });
-                        SetState(States.Ok);
+                        SetState(State.Ok);
                     },
                     (obj) =>
                     {
@@ -175,12 +175,12 @@ namespace PenBody_CadUI
                         {
                             if (!IsLoading)
                             {
-                                SetState(States.Ok);
+                                SetState(State.Ok);
                             }
                             
                             return true;
                         }
-                        SetState(States.Warning);
+                        SetState(State.Warning);
 
                         return false;
                     }
@@ -192,23 +192,23 @@ namespace PenBody_CadUI
         /// Метод установки состояния плагина.
         /// </summary>
         /// <param name="status">Состояние.</param>
-        private void SetState(States status)
+        private void SetState(State status)
         {
             switch (status)
             {
-                case States.Ok:
+                case State.Ok:
                     IsLoading = false;
                     Message = WAITING_MSG;
                     OkIconColor = new SolidColorBrush(Colors.Green);
                     WarningIconColor = new SolidColorBrush(Colors.Gray);
                     break;
-                case States.Warning:
+                case State.Warning:
                     Message = ERROR_MSG;
                     WarningIconColor = new SolidColorBrush(Color.FromRgb(247, 198, 0));
                     OkIconColor = new SolidColorBrush(Colors.Gray);
                     IsLoading = false;
                     break;
-                case States.Loading:
+                case State.Loading:
                     IsLoading = true;
                     Message = LOADING_MSG;
                     OkIconColor = new SolidColorBrush(Colors.Gray);
@@ -233,7 +233,7 @@ namespace PenBody_CadUI
 /// <summary>
 /// Перечисление состояний плагина.
 /// </summary>
-public enum States
+public enum State
 {
     Ok,
     Warning,
