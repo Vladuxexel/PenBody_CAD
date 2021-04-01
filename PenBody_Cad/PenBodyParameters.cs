@@ -127,16 +127,6 @@ namespace PenBody_Cad
                     throw new ArgumentException("Внутренний диаметр ручки не должен превышать 10 мм");
                 }
 
-                if (value > MainDiameter)
-                {
-                    throw new ArgumentException("Внутренний диаметр не должен быть больше диаметра самой ручки");
-                }
-
-                if (value > RubberDiameter)
-                {
-                    throw new ArgumentException("Внутренний диаметр не должен быть больше диаметра части для резинки");
-                }
-
                 if (RubberDiameter - value < 2)
                 {
                     throw new ArgumentException("Внутренний диаметр должен быть минимум на 2 мм меньше диаметра части для резинки");

@@ -173,6 +173,7 @@ namespace PenBody_CadUI
                     {
                         if (PenBodyParametersVM.Error == null)
                         {
+                            PenBodyParametersVM.UpdateAll();
                             if (!IsLoading)
                             {
                                 SetState(State.Ok);

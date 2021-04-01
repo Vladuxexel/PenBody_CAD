@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenBody_CadUI", "PenBody_Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenBody_Cad", "PenBody_Cad\PenBody_Cad.csproj", "{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PenBody_Cad.UnitTests", "PenBody_Cad.UnitTests\PenBody_Cad.UnitTests.csproj", "{DAE6211A-C8BA-437A-8759-683C20FC9134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE6211A-C8BA-437A-8759-683C20FC9134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE6211A-C8BA-437A-8759-683C20FC9134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE6211A-C8BA-437A-8759-683C20FC9134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE6211A-C8BA-437A-8759-683C20FC9134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
