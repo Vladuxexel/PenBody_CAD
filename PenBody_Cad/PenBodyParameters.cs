@@ -40,6 +40,7 @@ namespace PenBody_Cad
             get => _mainLength;
             set
             {
+                //TODO: Duplication
                 if (value < 20)
                 {
                     throw new ArgumentException("Длина основной части ручки должна быть не меньше 20 мм");
@@ -68,6 +69,7 @@ namespace PenBody_Cad
             get => _rubberLength;
             set
             {
+                //TODO: Duplication
                 if (value < 15)
                 {
                     throw new ArgumentException("Длина части для резинки должна быть не меньше 15 мм");
@@ -95,6 +97,7 @@ namespace PenBody_Cad
             get => _mainDiameter;
             set
             {
+
                 if (value < 10)
                 {
                     throw new ArgumentException("Диаметр ручки должен быть не меньше 10 мм");
@@ -117,6 +120,7 @@ namespace PenBody_Cad
             get => _innerDiameter;
             set
             {
+                //TODO: Duplication
                 if (value < 2)
                 {
                     throw new ArgumentException("Внутренний диаметр ручки должен быть не меньше 2 мм");
@@ -144,6 +148,7 @@ namespace PenBody_Cad
             get => _rubberDiameter;
             set
             {
+                //TODO: Duplication
                 if (value < 7)
                 {
                     throw new ArgumentException("Диаметр части для резинки должен быть не меньше 7 мм");

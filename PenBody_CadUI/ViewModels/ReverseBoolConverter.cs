@@ -10,6 +10,7 @@ namespace PenBody_CadUI
     /// </summary>
     public class ReverseBoolConverter : IValueConverter
     {
+        //TODO: CalcBinding
         /// <summary>
         /// Метод конвертации.
         /// </summary>

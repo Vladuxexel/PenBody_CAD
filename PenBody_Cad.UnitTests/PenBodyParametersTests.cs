@@ -6,6 +6,7 @@ namespace PenBody_Cad.UnitTests
     [TestFixture]
     public class PenBodyParametersTests
     {
+        //TODO: testname, testdescription
         [Test]
         public void MainLength_GoodValue()
         {

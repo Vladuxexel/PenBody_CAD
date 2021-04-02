@@ -10,6 +10,7 @@ namespace PenBody_CadUI.ViewModels
     /// </summary>
     public class PenBodyParametersVM : ViewModelBase, IDataErrorInfo
     {
+        //TODO: Переместить в модель
         /// <summary>
         /// Длина основной части ручки по умолчанию.
         /// </summary>
@@ -168,7 +169,8 @@ namespace PenBody_CadUI.ViewModels
 
                 switch (propertyName)
                 {
-                    case "MainLength":
+                    case nameof(MainLength):
+                        //TODO: Duplication
                         if (MainLength.Trim() == "")
                         {
                             error = "Необходимо ввести число";
@@ -190,6 +192,7 @@ namespace PenBody_CadUI.ViewModels
                         }
                         break;
                     case "RubberLength":
+                        //TODO: Duplication
                         if (RubberLength.Trim() == "")
                         {
                             error = "Необходимо ввести число";
@@ -211,6 +214,7 @@ namespace PenBody_CadUI.ViewModels
                         }
                         break;
                     case "MainDiameter":
+                        //TODO: Duplication
                         if (MainDiameter.Trim() == "")
                         {
                             error = "Необходимо ввести число";
@@ -232,6 +236,7 @@ namespace PenBody_CadUI.ViewModels
                         }
                         break;
                     case "InnerDiameter":
+                        //TODO: Duplication
                         if (InnerDiameter.Trim() == "")
                         {
                             error = "Необходимо ввести число";
@@ -253,6 +258,7 @@ namespace PenBody_CadUI.ViewModels
                         }
                         break;
                     case "RubberDiameter":
+                        //TODO: Duplication
                         if (RubberDiameter.Trim() == "")
                         {
                             error = "Необходимо ввести число";

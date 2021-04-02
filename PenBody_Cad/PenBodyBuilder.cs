@@ -84,6 +84,8 @@ namespace PenBody_Cad
         {
             CreateSketch();
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
+             //TODO: RSDN
+             //TODO: порефакторить, повыносить константы
             _sketch2D.ksLineSeg(_penBodyParameters.InnerDiameter / 2, 0, (_penBodyParameters.InnerDiameter / 2 + 1), 0, 1);
             _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), 0, (_penBodyParameters.InnerDiameter / 2 + 1), 5, 1);
             _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), 5, (_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + 5, 1);
@@ -131,7 +133,8 @@ namespace PenBody_Cad
         /// <returns>Полигон</returns>
         private ksRegularPolygonParam GetPolygon()
         {
-            var poly = (ksRegularPolygonParam)_cadConnector.Kompas.GetParamStruct((short)StructType2DEnum.ko_RegularPolygonParam);
+            var poly = (ksRegularPolygonParam)_cadConnector.Kompas
+                .GetParamStruct((short)StructType2DEnum.ko_RegularPolygonParam);
             poly.ang = 0;
             poly.count = 6;
             poly.describe = true;
