@@ -118,6 +118,10 @@
     <Resource Include="Views\Pen.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PenBody_CadInteractions\PenBody_CadInteractions.csproj">
+      <Project>{cade220e-2b46-41f4-94b4-a15b8996c5b7}</Project>
+      <Name>PenBody_CadInteractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PenBody_Cad\PenBody_Cad.csproj">
       <Project>{C25185C0-70DD-43A3-BB21-63C01BCFC9F0}</Project>
       <Name>PenBody_Cad</Name>
