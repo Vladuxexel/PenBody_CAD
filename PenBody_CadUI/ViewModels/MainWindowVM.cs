@@ -65,14 +65,14 @@ namespace PenBody_CadUI
         /// <summary>
         /// Свойство валидации параметров модели.
         /// </summary>
-        public PenBodyParametersVM PenBodyParametersVM { get; set; }
+        public PenBodyParametersListVM PenBodyParametersListVM { get; set; }
 
         /// <summary>
         /// Конструктор класса вью-модели окна.
         /// </summary>
         public MainWindowVM()
         {
-            PenBodyParametersVM = new PenBodyParametersVM();
+            PenBodyParametersListVM = new PenBodyParametersListVM();
             SetDefaultParams();
             _penBodyBuilder = new PenBodyBuilder();
         }
@@ -154,13 +154,13 @@ namespace PenBody_CadUI
                 return _buildCommand ??
                     (_buildCommand = new RelayCommand(async (obj) =>
                     {
-                        PenBodyParametersVM.UpdateAll();
+                        PenBodyParametersListVM.UpdateAll();
                         SetState(State.Loading);
                         await Task.Factory.StartNew(() =>
                         {
                             try
                             {
-                                _penBodyBuilder.Build(PenBodyParametersVM.GetValidModel());
+                                _penBodyBuilder.Build(PenBodyParametersListVM.GetValidModel());
                             }
                             catch(ArgumentException e)
                             {
@@ -171,9 +171,9 @@ namespace PenBody_CadUI
                     },
                     (obj) =>
                     {
-                        if (PenBodyParametersVM.Error == null)
+                        if (PenBodyParametersListVM.Error == null)
                         {
-                            PenBodyParametersVM.UpdateAll();
+                            PenBodyParametersListVM.UpdateAll();
                             if (!IsLoading)
                             {
                                 SetState(State.Ok);
@@ -223,7 +223,7 @@ namespace PenBody_CadUI
         /// </summary>
         private void SetDefaultParams()
         {
-            PenBodyParametersVM.SetToDefault();
+            PenBodyParametersListVM.SetToDefault();
             Message = WAITING_MSG;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);

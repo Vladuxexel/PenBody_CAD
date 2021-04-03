@@ -25,7 +25,7 @@ namespace PenBody_Cad
                     throw new ArgumentException("Значение параметра не должно превышать максимально допустимое");
                 }
 
-                var compareResMin = Comparer<double>.Default.Compare(value, _max);
+                var compareResMin = Comparer<double>.Default.Compare(value, _min);
                 if(compareResMin < 0)
                 {
                     throw new ArgumentException("Значение параметра не должно быть меньше минимально допустимого");

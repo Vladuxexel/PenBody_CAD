@@ -22,7 +22,7 @@ namespace PenBody_Cad
         /// <summary>
         /// Параметры модели.
         /// </summary>
-        private PenBodyParameters _penBodyParameters;
+        private PenBodyParametersList _penBodyParameters;
 
         /// <summary>
         /// Ссылка на документ.
@@ -58,7 +58,7 @@ namespace PenBody_Cad
         /// Метод запуска процесса построения детали.
         /// </summary>
         /// <param name="penBodyParameters">Объект с параметрами.</param>
-        public void Build(PenBodyParameters penBodyParameters)
+        public void Build(PenBodyParametersList penBodyParameters)
         {
             _penBodyParameters = penBodyParameters;
             _cadConnector = new CadConnector();
@@ -86,20 +86,20 @@ namespace PenBody_Cad
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
              //TODO: RSDN
              //TODO: порефакторить, повыносить константы
-            _sketch2D.ksLineSeg(_penBodyParameters.InnerDiameter / 2, 0, (_penBodyParameters.InnerDiameter / 2 + 1), 0, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), 0, (_penBodyParameters.InnerDiameter / 2 + 1), 5, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), 5, (_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + 5, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + 5, (_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + 5, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + 5, (_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + 7, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + 7, (_penBodyParameters.RubberDiameter / 2), _penBodyParameters.MainLength + 7, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.RubberDiameter / 2), _penBodyParameters.MainLength + 7, (_penBodyParameters.RubberDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 7, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.RubberDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 7, (_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 7, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 7, (_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 10, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.MainDiameter / 2), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 10, (_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 10, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 10, (_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 15, 1);
-            _sketch2D.ksLineSeg((_penBodyParameters.InnerDiameter / 2 + 1), _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 15, _penBodyParameters.InnerDiameter / 2, _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 15, 1);
-            _sketch2D.ksLineSeg(_penBodyParameters.InnerDiameter / 2, _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 15, _penBodyParameters.InnerDiameter / 2, 0, 1);
-            _sketch2D.ksLineSeg(0, 0, 0, _penBodyParameters.MainLength + _penBodyParameters.RubberLength + 15, 3);
+            _sketch2D.ksLineSeg(_penBodyParameters[ParamName.InnerDiameter] / 2, 0, (_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), 0, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), 0, (_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), 5, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), 5, (_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + 5, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + 5, (_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 5, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 5, (_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 7, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 7, (_penBodyParameters[ParamName.RubberDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 7, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.RubberDiameter] / 2), _penBodyParameters[ParamName.MainLength] + 7, (_penBodyParameters[ParamName.RubberDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 7, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.RubberDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 7, (_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 7, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 7, (_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 10, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.MainDiameter] / 2), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 10, (_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 10, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 10, (_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 15, 1);
+            _sketch2D.ksLineSeg((_penBodyParameters[ParamName.InnerDiameter] / 2 + 1), _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 15, _penBodyParameters[ParamName.InnerDiameter] / 2, _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 15, 1);
+            _sketch2D.ksLineSeg(_penBodyParameters[ParamName.InnerDiameter] / 2, _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 15, _penBodyParameters[ParamName.InnerDiameter] / 2, 0, 1);
+            _sketch2D.ksLineSeg(0, 0, 0, _penBodyParameters[ParamName.MainLength] + _penBodyParameters[ParamName.RubberLength] + 15, 3);
             _sketchDefinition.EndEdit();
         }
 
@@ -138,7 +138,7 @@ namespace PenBody_Cad
             poly.ang = 0;
             poly.count = 6;
             poly.describe = true;
-            poly.radius = 0.87 * _penBodyParameters.MainDiameter / 2;
+            poly.radius = 0.87 * _penBodyParameters[ParamName.MainDiameter] / 2;
             poly.style = 1;
             poly.xc = 0;
             poly.yc = 0;
@@ -157,7 +157,7 @@ namespace PenBody_Cad
             var poly = GetPolygon();
 
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
-            _sketch2D.ksCircle(0, 0, _penBodyParameters.InnerDiameter / 2, 1);
+            _sketch2D.ksCircle(0, 0, _penBodyParameters[ParamName.InnerDiameter] / 2, 1);
             _sketch2D.ksRegularPolygon(poly);
             _sketchDefinition.EndEdit();
         }
@@ -181,7 +181,7 @@ namespace PenBody_Cad
         {
             var entityExtrude1 = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_baseExtrusion);
             var entityExtrudeDefinition1 = (ksBaseExtrusionDefinition)entityExtrude1.GetDefinition();
-            entityExtrudeDefinition1.SetSideParam(true, 0, _penBodyParameters.MainLength);
+            entityExtrudeDefinition1.SetSideParam(true, 0, _penBodyParameters[ParamName.MainLength]);
             entityExtrudeDefinition1.SetSketch(_entitySketch);
             entityExtrude1.Create();
         }
