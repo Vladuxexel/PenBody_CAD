@@ -62,7 +62,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\PenBodyParametersListVM.cs" />
-    <Compile Include="ViewModels\PenBodyParametersVM.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ReverseBoolConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

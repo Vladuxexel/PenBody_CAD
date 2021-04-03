@@ -24,7 +24,7 @@ namespace PenBody_Cad
         /// <summary>
         /// Минимальный диаметр части для резинки.
         /// </summary>
-        private const double MaxRubberDiameter = 10;
+        private const double MaxRubberDiameter = 18;
 
         /// <summary>
         /// Максимальный внутренний диаметр ручки.
