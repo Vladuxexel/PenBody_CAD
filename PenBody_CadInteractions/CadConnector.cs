@@ -1,34 +1,79 @@
 ﻿using Kompas6API5;
 using System;
+using System.Runtime.InteropServices;
 
 namespace PenBody_Cad
 {
     /// <summary>
-    /// Класс управления подключением к Компас 3d.
+    /// Класс управления подключением к КОМПАС-3D.
     /// </summary>
     public class CadConnector
     {
+        /// <summary>
+        /// Название точки входа в api5.
+        /// </summary>
+        private const string Api5Name = "KOMPAS.Application.5";
+
         /// <summary>
         /// Объект када.
         /// </summary>
         public KompasObject Kompas { get; set; }
 
         /// <summary>
-        /// Запуск Компас 3d и создание
+        /// Запуск КОМПАС-3D.
         /// </summary>
-        /// <returns></returns>
         public void Connect()
         {
-            if (Kompas == null)
+            var recievingResult = GetActiveKompas(out var kompas);
+            if (!recievingResult)
             {
-                var type = Type.GetTypeFromProgID("KOMPAS.Application.5");
-                Kompas = (KompasObject)Activator.CreateInstance(type);
+                var creationResult = CreateCompasInstance(out kompas);
+                if (!creationResult)
+                {
+                    throw new ArgumentException("Не удалось создать новый экземпляр КОМПАС-3D.");
+                }
             }
-            
-            if (Kompas != null)
+            kompas.Visible = true;
+            kompas.ActivateControllerAPI();
+            Kompas = kompas;
+        }
+
+        /// <summary>
+        /// Подключение к активному экземпляру КОМПАС-3D.
+        /// </summary>
+        /// <param name="kompas">Ссылка на экземпляр КОМПАС-3D.</param>
+        /// <returns>Результат подключения.</returns>
+        private bool GetActiveKompas(out KompasObject kompas)
+        {
+            kompas = null;
+            try
             {
-                Kompas.Visible = true;
-                Kompas.ActivateControllerAPI();
+                kompas = (KompasObject)Marshal.GetActiveObject(Api5Name);
+                return true;
+            }
+            catch (COMException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Создание нового экземпляра КОМПАС-3D.
+        /// </summary>
+        /// <param name="kompas">Ссылка на экземпляр КОМПАС-3D.</param>
+        /// <returns>Результат успешности создания.</returns>
+        private bool CreateCompasInstance(out KompasObject kompas)
+        {
+            try
+            {
+                var type = Type.GetTypeFromProgID(Api5Name);
+                kompas = (KompasObject)Activator.CreateInstance(type);
+                return true;
+            }
+            catch (COMException)
+            {
+                kompas = null;
+                return false;
             }
         }
     }
