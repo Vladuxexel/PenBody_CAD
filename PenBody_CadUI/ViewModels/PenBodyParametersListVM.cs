@@ -132,12 +132,7 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public PenBodyParametersListVM()
         {
-            _penBodyParametersList = new PenBodyParametersList();
-            MainLength = _penBodyParametersList[ParamName.MainLength].ToString();
-            RubberLength = _penBodyParametersList[ParamName.RubberLength].ToString();
-            MainDiameter = _penBodyParametersList[ParamName.MainDiameter].ToString();
-            RubberDiameter = _penBodyParametersList[ParamName.RubberDiameter].ToString();
-            InnerDiameter = _penBodyParametersList[ParamName.InnerDiameter].ToString();
+            SetToDefault();
         }
 
         /// <summary>
@@ -277,6 +272,11 @@ namespace PenBody_CadUI.ViewModels
         public void SetToDefault()
         {
             PenBodyParametersList = new PenBodyParametersList();
+            MainLength = PenBodyParametersList[ParamName.MainLength].ToString();
+            RubberLength = PenBodyParametersList[ParamName.RubberLength].ToString();
+            MainDiameter = PenBodyParametersList[ParamName.MainDiameter].ToString();
+            RubberDiameter = PenBodyParametersList[ParamName.RubberDiameter].ToString();
+            InnerDiameter = PenBodyParametersList[ParamName.InnerDiameter].ToString();
         }
 
         public PenBodyParametersList GetValidModel() => PenBodyParametersList;

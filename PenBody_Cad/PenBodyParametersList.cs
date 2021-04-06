@@ -128,8 +128,6 @@ namespace PenBody_Cad
                                 "половину длины основной части");
                         }
                         break;
-                    case ParamName.MainDiameter:
-                        break;
                     case ParamName.RubberDiameter:
                         if (value > GetParam(ParamName.MainDiameter).Value)
                         {

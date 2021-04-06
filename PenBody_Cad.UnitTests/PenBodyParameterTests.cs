@@ -1,10 +1,6 @@
 ﻿using NUnit.Framework;
 using PenBody_Cad.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PenBody_Cad.UnitTests
 {
@@ -25,6 +21,7 @@ namespace PenBody_Cad.UnitTests
             Assert.Throws<ArgumentException>(
                 () =>
                 {
+                    //Setup
                     var penBodyParameter = new PenBodyParameter(name, max, min, value);
                 });
         }
@@ -56,9 +53,32 @@ namespace PenBody_Cad.UnitTests
             Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [TestCase(50, Description = "Значение параметра превышает максимально допустимое")]
-        [TestCase(5, Description = "Значение параметра меньше минимально допустимого")]
-        public void Parameter_Value_GoodValue(double badValue)
+        [TestCase(25, Description = "Позитивный тест установки значения параметра")]
+        [TestCase(30, Description = "Позитивный тест установки значения параметра на границе максимального")]
+        [TestCase(10, Description = "Позитивный тест установки значения параметра на границе минимального")]
+        public void Parameter_Value_GoodValue(double goodValue)
+        {
+            //Setup
+            var name = ParamName.MainLength;
+            var max = 30;
+            var min = 10;
+            var value = 20;
+            var penBodyParameter = new PenBodyParameter(name, max, min, value);
+            var expectedValue = goodValue;
+
+            //Act
+            penBodyParameter.Value = goodValue;
+            var actualValue = penBodyParameter.Value;
+
+            //Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [TestCase(50,
+            Description = "Значение параметра превышает максимально допустимое")]
+        [TestCase(5,
+            Description = "Значение параметра меньше минимально допустимого")]
+        public void Parameter_Value_BadValue(double badValue)
         {
             //Setup
             var name = ParamName.MainLength;
