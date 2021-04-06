@@ -60,7 +60,7 @@ namespace PenBody_CadUI
         /// <summary>
         /// Поле для вызова метода построения детали.
         /// </summary>
-        private PenBodyBuilder _penBodyBuilder;
+        private readonly PenBodyBuilder _penBodyBuilder;
 
         /// <summary>
         /// Свойство валидации параметров модели.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PenBody_Cad.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,13 @@ namespace PenBody_Cad
                 var compareResMax = Comparer<double>.Default.Compare(value, _max);
                 if (compareResMax > 0)
                 {
-                    throw new ArgumentException("Значение параметра не должно превышать максимально допустимое");
+                    throw new ArgumentException($"Значение параметра не должно превышать {_max}");
                 }
 
                 var compareResMin = Comparer<double>.Default.Compare(value, _min);
                 if(compareResMin < 0)
                 {
-                    throw new ArgumentException("Значение параметра не должно быть меньше минимально допустимого");
+                    throw new ArgumentException($"Значение параметра не должно быть меньше {_min}");
                 }
 
                 _value = value;
@@ -72,14 +73,5 @@ namespace PenBody_Cad
             Min = min;
             Value = value;
         }
-    }
-
-    public enum ParamName
-    {
-        MainLength,
-        RubberLength,
-        MainDiameter,
-        RubberDiameter,
-        InnerDiameter
     }
 }

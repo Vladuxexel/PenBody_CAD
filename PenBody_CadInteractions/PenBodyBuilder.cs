@@ -1,6 +1,7 @@
 ﻿using Kompas6API5;
 using Kompas6Constants;
 using Kompas6Constants3D;
+using PenBody_Cad.Enums;
 using System.Windows;
 
 namespace PenBody_Cad
@@ -86,7 +87,7 @@ namespace PenBody_Cad
             //Высота круга перед резинкой
             var preRubberHeight = 2;
             //Высота круга после резинки
-            var afterRubberHeidht = 3;
+            var afterRubberHeight = 3;
             //Начало координат
             var baseXY = 0;
             //Тип основной линии
@@ -105,15 +106,15 @@ namespace PenBody_Cad
             var p7 = new Point(rubberRadius, mainLength + rubberLength + carvingHeight + preRubberHeight);
             var p8 = new Point(mainRadius, mainLength + rubberLength + carvingHeight + preRubberHeight);
             var p9 = new Point(mainRadius, 
-                mainLength + rubberLength + carvingHeight + preRubberHeight + afterRubberHeidht);
+                mainLength + rubberLength + carvingHeight + preRubberHeight + afterRubberHeight);
             var p10 = new Point(innerRadius + carvingWidth, 
-                mainLength + rubberLength + carvingHeight + preRubberHeight + afterRubberHeidht);
+                mainLength + rubberLength + carvingHeight + preRubberHeight + afterRubberHeight);
             var p11 = new Point(innerRadius + carvingWidth, 
-                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeidht);
+                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeight);
             var p12 = new Point(innerRadius, 
-                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeidht);
+                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeight);
             var p13 = new Point(baseXY, 
-                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeidht);
+                mainLength + rubberLength + carvingHeight * 2 + preRubberHeight + afterRubberHeight);
             #endregion
 
             CreateSketch();

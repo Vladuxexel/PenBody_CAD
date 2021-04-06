@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PenBody_Cad.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace PenBody_Cad
@@ -86,7 +87,7 @@ namespace PenBody_Cad
         private const double DefaultInnerDiameter = 5;
         #endregion
 
-        private List<PenBodyParameter> _parameters = new List<PenBodyParameter>
+        private readonly List<PenBodyParameter> _parameters = new List<PenBodyParameter>
         {
             new PenBodyParameter(ParamName.MainLength, MaxMainLength, MinMainLength, DefaultMainLength),
             new PenBodyParameter(ParamName.RubberLength, MaxRubberLength, MinRubberLength, DefaultRubberLength),
