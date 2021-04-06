@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PenBody_CadUI"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
+        xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
         Icon="pack://application:,,,/Views/Pen.ico"
         ResizeMode="NoResize"
         Title="Корпус пишущей ручки" Height="350" Width="330" WindowStartupLocation="CenterScreen">
@@ -21,7 +22,7 @@
             <fa:ImageAwesome Icon="CheckCircle" Foreground="{Binding OkIconColor}"/>
             <fa:ImageAwesome Icon="Warning" Foreground="{Binding WarningIconColor}"/>
             <TextBlock Text="{Binding Message}" Style="{StaticResource MsgText}"/>
-            <ProgressBar/>
+            <ProgressBar Visibility="{calc:Binding IsLoading, FalseToVisibility=Hidden}"/>
         </StatusBar>
         <Grid Margin="5">
             <Grid.RowDefinitions>
@@ -42,31 +43,31 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Длина основной части (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" MaxLength="7"
+                    <TextBox Grid.Column="1" Grid.Row="0" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.MainLength,
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Text="Длина части для резинки (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="7"
+                    <TextBox Grid.Column="1" Grid.Row="1" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.RubberLength,
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="Диаметр (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" MaxLength="7"
+                    <TextBox Grid.Column="1" Grid.Row="2" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.MainDiameter, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="3" Text="Внутренний диаметр (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="7"
+                    <TextBox Grid.Column="1" Grid.Row="3" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.InnerDiameter, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Диаметр части для резинки (мм):"/>
-                    <TextBox Grid.Column="1" Grid.Row="4" MaxLength="7"
+                    <TextBox Grid.Column="1" Grid.Row="4" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.RubberDiameter,
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 </Grid>
             </Border>
             <Button Grid.Row="1" Content="Сбросить" HorizontalAlignment="Left"
-                    Command="{Binding ResetCommand}"/>
+                    IsEnabled="{calc:Binding !IsLoading}" Command="{Binding ResetCommand}"/>
             <Button Grid.Row="1" Content="Построить" HorizontalAlignment="Right"
-                    Command="{Binding BuildCommand}"/>
+                    IsEnabled="{calc:Binding !IsLoading}" Command="{Binding BuildCommand}"/>
         </Grid>
     </DockPanel>
 </Window>
