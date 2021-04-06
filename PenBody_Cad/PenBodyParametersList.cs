@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PenBody_Cad
 {
+    /// <summary>
+    /// Класс, представляющий набор параметров в виде списка.
+    /// </summary>
     public class PenBodyParametersList
     {
         #region Максимальные значения параметров
@@ -87,6 +90,9 @@ namespace PenBody_Cad
         private const double DefaultInnerDiameter = 5;
         #endregion
 
+        /// <summary>
+        /// Список парамеров.
+        /// </summary>
         private readonly List<PenBodyParameter> _parameters = new List<PenBodyParameter>
         {
             new PenBodyParameter(ParamName.MainLength, MaxMainLength, MinMainLength, DefaultMainLength),
@@ -96,6 +102,11 @@ namespace PenBody_Cad
             new PenBodyParameter(ParamName.InnerDiameter, MaxInnerDiameter, MinInnerDiameter, DefaultInnerDiameter)
         };
 
+        /// <summary>
+        /// Индексатор для списка параметров.
+        /// </summary>
+        /// <param name="paramName">Имя параметра.</param>
+        /// <returns>Значение параметра.</returns>
         public double this[ParamName paramName]
         {
             get => GetParam(paramName).Value;
@@ -144,6 +155,11 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Получение параметра по имени.
+        /// </summary>
+        /// <param name="paramName">Имя параметра.</param>
+        /// <returns>Параметр.</returns>
         private PenBodyParameter GetParam(ParamName paramName) =>
             _parameters.Find((parameter) => parameter.Name.Equals(paramName));
     }

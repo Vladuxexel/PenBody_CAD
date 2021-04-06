@@ -1,20 +1,37 @@
 ﻿using PenBody_Cad.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PenBody_Cad
 {
+    /// <summary>
+    /// Класс, представляющий параметр.
+    /// </summary>
     public class PenBodyParameter
     {
+        /// <summary>
+        /// Значение параметра.
+        /// </summary>
         private double _value;
+
+        /// <summary>
+        /// Минимальная граница параметра.
+        /// </summary>
         private double _min;
+
+        /// <summary>
+        /// Максимальная граница параметра.
+        /// </summary>
         private double _max;
 
+        /// <summary>
+        /// Има параметра.
+        /// </summary>
         public ParamName Name { get; set; }
 
+        /// <summary>
+        /// Свойство значения параметра.
+        /// </summary>
         public double Value
         {
             get => _value;
@@ -36,6 +53,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство минимальной границы параметра.
+        /// </summary>
         public double Min
         {
             get => _min;
@@ -51,6 +71,9 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Свойство максимальной границы параметра.
+        /// </summary>
         public double Max
         {
             get => _max;
@@ -66,6 +89,13 @@ namespace PenBody_Cad
             }
         }
 
+        /// <summary>
+        /// Конструктор класса параметра.
+        /// </summary>
+        /// <param name="paramName">Имя параметра.</param>
+        /// <param name="max">Максимальная граница параметра.</param>
+        /// <param name="min">Минимальная граница параметра.</param>
+        /// <param name="value">Значение параметра.</param>
         public PenBodyParameter(ParamName paramName, double max, double min, double value)
         {
             Name = paramName;
