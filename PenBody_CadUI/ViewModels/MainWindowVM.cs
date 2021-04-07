@@ -1,4 +1,6 @@
-﻿using PenBody_Cad;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using PenBody_Cad;
 using PenBody_CadUI.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -48,16 +50,6 @@ namespace PenBody_CadUI
         private string _message;
 
         /// <summary>
-        /// Команда сброса параметров до стандартных.
-        /// </summary>
-        private RelayCommand _resetCommand;
-
-        /// <summary>
-        /// Команда запуска построения детали.
-        /// </summary>
-        private RelayCommand _buildCommand;
-
-        /// <summary>
         /// Поле для вызова метода построения детали.
         /// </summary>
         private readonly PenBodyBuilder _penBodyBuilder;
@@ -75,6 +67,8 @@ namespace PenBody_CadUI
             PenBodyParametersListVM = new PenBodyParametersListVM();
             SetDefaultParams();
             _penBodyBuilder = new PenBodyBuilder();
+            ResetCommand = new RelayCommand(SetDefaultParams);
+            BuildCommand = new RelayCommand(Build, CanBuild);
         }
 
         /// <summary>
@@ -86,7 +80,7 @@ namespace PenBody_CadUI
             set
             {
                 _message = value;
-                OnPropertyChanged(nameof(Message));
+                RaisePropertyChanged(nameof(Message));
             }
         }
 
@@ -99,7 +93,7 @@ namespace PenBody_CadUI
             set
             {
                 _isLoading = value;
-                OnPropertyChanged(nameof(IsLoading));
+                RaisePropertyChanged(nameof(IsLoading));
             }
         }
 
@@ -112,7 +106,7 @@ namespace PenBody_CadUI
             set
             {
                 _okIconColor = value;
-                OnPropertyChanged(nameof(OkIconColor));
+                RaisePropertyChanged(nameof(OkIconColor));
             }
         }
 
@@ -125,69 +119,19 @@ namespace PenBody_CadUI
             set
             {
                 _warningIconColor = value;
-                OnPropertyChanged(nameof(WarningIconColor));
+                RaisePropertyChanged(nameof(WarningIconColor));
             }
         }
 
         /// <summary>
-        /// Свойство команды сброса параметров до стандартных.
+        /// Команда сброса параметров до стандартных.
         /// </summary>
-        public RelayCommand ResetCommand
-        {
-            get
-            {
-                return _resetCommand ??
-                    (_resetCommand = new RelayCommand((obj) =>
-                    {
-                        SetDefaultParams();
-                    }));
-            }
-        }
+        public RelayCommand ResetCommand { get; private set; }
 
         /// <summary>
-        /// Свойство команды запуска построения детали.
+        /// Команда запуска построения детали.
         /// </summary>
-        public RelayCommand BuildCommand
-        {
-            get
-            {
-                return _buildCommand ??
-                    (_buildCommand = new RelayCommand(async (obj) =>
-                    {
-                        PenBodyParametersListVM.UpdateAll();
-                        SetState(State.Loading);
-                        await Task.Factory.StartNew(() =>
-                        {
-                            try
-                            {
-                                _penBodyBuilder.Build(PenBodyParametersListVM.GetValidModel());
-                            }
-                            catch(ArgumentException e)
-                            {
-                                MessageBox.Show(e.Message, "Предупреждение");
-                            }
-                        });
-                        SetState(State.Ok);
-                    },
-                    (obj) =>
-                    {
-                        if (PenBodyParametersListVM.Error == null)
-                        {
-                            PenBodyParametersListVM.UpdateAll();
-                            if (!IsLoading)
-                            {
-                                SetState(State.Ok);
-                            }
-                            
-                            return true;
-                        }
-                        SetState(State.Warning);
-
-                        return false;
-                    }
-                    ));
-            }
-        }
+        public RelayCommand BuildCommand { get; private set; }
 
         /// <summary>
         /// Метод установки состояния плагина.
@@ -227,6 +171,41 @@ namespace PenBody_CadUI
             Message = WAITING_MSG;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);
+        }
+
+        private async void Build()
+        {
+            PenBodyParametersListVM.UpdateAll();
+            SetState(State.Loading);
+            await Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    _penBodyBuilder.Build(PenBodyParametersListVM.GetValidModel());
+                }
+                catch (ArgumentException e)
+                {
+                    MessageBox.Show(e.Message, "Предупреждение");
+                }
+            });
+            SetState(State.Ok);
+        }
+
+        private bool CanBuild()
+        {
+            if (PenBodyParametersListVM.Error == null)
+            {
+                PenBodyParametersListVM.UpdateAll();
+                if (!IsLoading)
+                {
+                    SetState(State.Ok);
+                }
+
+                return true;
+            }
+            SetState(State.Warning);
+
+            return false;
         }
     }
 }

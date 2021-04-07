@@ -1,4 +1,5 @@
-﻿using PenBody_Cad;
+﻿using GalaSoft.MvvmLight;
+using PenBody_Cad;
 using PenBody_Cad.Enums;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 _penBodyParametersList = value;
-                OnPropertyChanged(nameof(PenBodyParametersList));
+                RaisePropertyChanged(nameof(PenBodyParametersList));
             }
         }
 
@@ -286,11 +287,11 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public void UpdateAll()
         {
-            OnPropertyChanged(nameof(MainLength));
-            OnPropertyChanged(nameof(RubberLength));
-            OnPropertyChanged(nameof(MainDiameter));
-            OnPropertyChanged(nameof(InnerDiameter));
-            OnPropertyChanged(nameof(RubberDiameter));
+            RaisePropertyChanged(nameof(MainLength));
+            RaisePropertyChanged(nameof(RubberLength));
+            RaisePropertyChanged(nameof(MainDiameter));
+            RaisePropertyChanged(nameof(InnerDiameter));
+            RaisePropertyChanged(nameof(RubberDiameter));
         }
 
         /// <summary>
