@@ -1,4 +1,4 @@
-п»їusing GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using PenBody_Cad;
 using PenBody_CadUI.ViewModels;
@@ -7,60 +7,57 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace PenBody_CadUI
+namespace PenBody_CadUI.ViewModel
 {
-    /// <summary>
-    /// Р’СЊСЋ-РјРѕРґРµР»СЊ РѕРєРЅР°.
-    /// </summary>
     public class MainWindowVM : ViewModelBase
     {
         /// <summary>
-        /// РЎРѕРѕР±С‰РµРЅРёРµ РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР°.
+        /// Сообщение нормального состояния плагина.
         /// </summary>
-        private const string WAITING_MSG = "РџР»Р°РіРёРЅ РіРѕС‚РѕРІ Рє РїРѕСЃС‚СЂРѕРµРЅРёСЋ";
+        private const string WAITING_MSG = "Плагин готов к построению";
 
         /// <summary>
-        /// РЎРѕРѕР±С‰РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ.
+        /// Сообщение состояния плагина при загрузке.
         /// </summary>
-        private const string LOADING_MSG = "Р—Р°РїСѓСЃРє РљРћРњРџРђРЎ-3D...";
+        private const string LOADING_MSG = "Запуск КОМПАС-3D...";
 
         /// <summary>
-        /// РЎРѕРѕР±С‰РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР° РїСЂРё РѕС€РёР±РєРµ.
+        /// Сообщение состояния плагина при ошибке.
         /// </summary>
-        private const string ERROR_MSG = "РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РІРІРµРґРёС‚Рµ РєРѕСЂСЂРµРєС‚РЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹";
+        private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
         /// <summary>
-        /// Р¤Р»Р°Рі СЃРѕСЃС‚РѕСЏРЅРёСЏ Р·Р°РіСЂСѓР·РєРё РљРѕРјРїР°СЃ-3D.
+        /// Флаг состояния загрузки Компас-3D.
         /// </summary>
         private bool _isLoading;
 
         /// <summary>
-        /// Р¦РІРµС‚ РёРєРѕРЅРєРё "РћРє".
+        /// Цвет иконки "Ок".
         /// </summary>
         private SolidColorBrush _okIconColor;
 
         /// <summary>
-        /// Р¦РІРµС‚ РёРєРѕРЅРєРё "РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ".
+        /// Цвет иконки "Предупреждение".
         /// </summary>
         private SolidColorBrush _warningIconColor;
 
         /// <summary>
-        /// РЎРѕРѕР±С‰РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР°.
+        /// Сообщение состояния плагина.
         /// </summary>
         private string _message;
 
         /// <summary>
-        /// РџРѕР»Рµ РґР»СЏ РІС‹Р·РѕРІР° РјРµС‚РѕРґР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РґРµС‚Р°Р»Рё.
+        /// Поле для вызова метода построения детали.
         /// </summary>
         private readonly PenBodyBuilder _penBodyBuilder;
 
         /// <summary>
-        /// РЎРІРѕР№СЃС‚РІРѕ РІР°Р»РёРґР°С†РёРё РїР°СЂР°РјРµС‚СЂРѕРІ РјРѕРґРµР»Рё.
+        /// Свойство валидации параметров модели.
         /// </summary>
         public PenBodyParametersListVM PenBodyParametersListVM { get; set; }
 
         /// <summary>
-        /// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° РІСЊСЋ-РјРѕРґРµР»Рё РѕРєРЅР°.
+        /// Конструктор класса вью-модели окна.
         /// </summary>
         public MainWindowVM()
         {
@@ -72,7 +69,7 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РЎРІРѕР№СЃС‚РІРѕ СЃРѕРѕР±С‰РµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР°.
+        /// Свойство сообщения состояния плагина.
         /// </summary>
         public string Message
         {
@@ -85,7 +82,7 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РЎРІРѕР№СЃС‚РІРѕ С„Р»Р°РіР° СЃРѕСЃС‚РѕСЏРЅРёСЏ Р·Р°РіСЂСѓР·РєРё РљРѕРјРїР°СЃ-3D.
+        /// Свойство флага состояния загрузки Компас-3D.
         /// </summary>
         public bool IsLoading
         {
@@ -98,7 +95,7 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РЎРІРѕР№СЃС‚РІРѕ С†РІРµС‚Р° РёРєРѕРЅРєРё "РћРє".
+        /// Свойство цвета иконки "Ок".
         /// </summary>
         public SolidColorBrush OkIconColor
         {
@@ -111,7 +108,7 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РЎРІРѕР№СЃС‚РІРѕ С†РІРµС‚Р° РёРєРѕРЅРєРё "РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ".
+        /// Свойство цвета иконки "Предупреждение".
         /// </summary>
         public SolidColorBrush WarningIconColor
         {
@@ -124,19 +121,19 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РљРѕРјР°РЅРґР° СЃР±СЂРѕСЃР° РїР°СЂР°РјРµС‚СЂРѕРІ РґРѕ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С….
+        /// Команда сброса параметров до стандартных.
         /// </summary>
         public RelayCommand ResetCommand { get; private set; }
 
         /// <summary>
-        /// РљРѕРјР°РЅРґР° Р·Р°РїСѓСЃРєР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РґРµС‚Р°Р»Рё.
+        /// Команда запуска построения детали.
         /// </summary>
         public RelayCommand BuildCommand { get; private set; }
 
         /// <summary>
-        /// РњРµС‚РѕРґ СѓСЃС‚Р°РЅРѕРІРєРё СЃРѕСЃС‚РѕСЏРЅРёСЏ РїР»Р°РіРёРЅР°.
+        /// Метод установки состояния плагина.
         /// </summary>
-        /// <param name="status">РЎРѕСЃС‚РѕСЏРЅРёРµ.</param>
+        /// <param name="status">Состояние.</param>
         private void SetState(State status)
         {
             switch (status)
@@ -163,7 +160,7 @@ namespace PenBody_CadUI
         }
 
         /// <summary>
-        /// РњРµС‚РѕРґ СЃР±СЂРѕСЃР° РїР°СЂР°РјРµС‚СЂРѕРІ РјРѕРґРµР»Рё РґРѕ СЃС‚Р°РЅРґР°СЂС‚РЅС‹С….
+        /// Метод сброса параметров модели до стандартных.
         /// </summary>
         private void SetDefaultParams()
         {
@@ -185,7 +182,7 @@ namespace PenBody_CadUI
                 }
                 catch (ArgumentException e)
                 {
-                    MessageBox.Show(e.Message, "РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ");
+                    MessageBox.Show(e.Message, "Предупреждение");
                 }
             });
             SetState(State.Ok);
@@ -208,14 +205,14 @@ namespace PenBody_CadUI
             return false;
         }
     }
-}
 
-/// <summary>
-/// РџРµСЂРµС‡РёСЃР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёР№ РїР»Р°РіРёРЅР°.
-/// </summary>
-public enum State
-{
-    Ok,
-    Warning,
-    Loading
+    /// <summary>
+    /// Перечисление состояний плагина.
+    /// </summary>
+    public enum State
+    {
+        Ok,
+        Warning,
+        Loading
+    }
 }

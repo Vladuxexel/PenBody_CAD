@@ -41,14 +41,14 @@ namespace PenBody_CadUI.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MainWindowVM>();
         }
 
-        public MainViewModel Main
+        public MainWindowVM Main
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<MainWindowVM>();
             }
         }
         

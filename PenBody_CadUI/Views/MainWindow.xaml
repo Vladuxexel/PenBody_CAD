@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PenBody_CadUI"
+        xmlns:vm="clr-namespace:PenBody_CadUI.ViewModel"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
@@ -11,7 +11,7 @@
         ResizeMode="NoResize"
         Title="Корпус пишущей ручки" Height="350" Width="330" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <local:MainWindowVM/>
+        <vm:MainWindowVM/>
     </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary Source="CadStyles.xaml"/>
