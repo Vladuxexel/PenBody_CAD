@@ -24,31 +24,6 @@ namespace PenBody_CadUI.ViewModels
         private PenBodyParametersList _penBodyParametersList;
 
         /// <summary>
-        /// Длина основной части.
-        /// </summary>
-        private string _mainLength;
-
-        /// <summary>
-        /// Длина части для резинки.
-        /// </summary>
-        private string _rubberLength;
-
-        /// <summary>
-        /// Диаметр ручки.
-        /// </summary>
-        private string _mainDiameter;
-
-        /// <summary>
-        /// Внутренний диаметр.
-        /// </summary>
-        private string _innerDiameter;
-
-        /// <summary>
-        /// Диаметр части для резинки.
-        /// </summary>
-        private string _rubberDiameter;
-
-        /// <summary>
         /// Свойство для вывода ошибки.
         /// </summary>
         public string Error { get; private set; }
@@ -68,11 +43,11 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string MainLength
         {
-            get => _mainLength;
+            get => GetProperty(nameof(MainLength)).Value;
             set
             {
-                _mainLength = DotToComma(value);
-                UpdateAll();
+                GetProperty(nameof(MainLength)).Value = DotToComma(value);
+                //UpdateAll();
             }
         }
 
@@ -81,11 +56,11 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string RubberLength
         {
-            get => _rubberLength;
+            get => GetProperty(nameof(RubberLength)).Value;
             set
             {
-                _rubberLength = DotToComma(value);
-                UpdateAll();
+                GetProperty(nameof(RubberLength)).Value = DotToComma(value);
+                //UpdateAll();
             }
         }
 
@@ -94,11 +69,11 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string MainDiameter
         {
-            get => _mainDiameter;
+            get => GetProperty(nameof(MainDiameter)).Value;
             set
             {
-                _mainDiameter = DotToComma(value);
-                UpdateAll();
+                GetProperty(nameof(MainDiameter)).Value = DotToComma(value);
+                //UpdateAll();
             }
         }
 
@@ -107,11 +82,11 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string InnerDiameter
         {
-            get => _innerDiameter;
+            get => GetProperty(nameof(InnerDiameter)).Value;
             set
             {
-                _innerDiameter = DotToComma(value);
-                UpdateAll();
+                GetProperty(nameof(InnerDiameter)).Value = DotToComma(value);
+                //UpdateAll();
             }
         }
 
@@ -120,10 +95,10 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string RubberDiameter
         {
-            get => _rubberDiameter;
+            get => GetProperty(nameof(RubberDiameter)).Value;
             set
             {
-                _rubberDiameter = DotToComma(value);
+                GetProperty(nameof(RubberDiameter)).Value = DotToComma(value);
                 UpdateAll();
             }
         }
@@ -136,6 +111,15 @@ namespace PenBody_CadUI.ViewModels
             SetToDefault();
         }
 
+        private List<PenBodyParameterVM> _propertyMap = new List<PenBodyParameterVM>()
+        {
+            new PenBodyParameterVM("MainLength", "40", ParamName.MainLength),
+            new PenBodyParameterVM("RubberLength", "20", ParamName.RubberLength),
+            new PenBodyParameterVM("MainDiameter", "15", ParamName.MainDiameter),
+            new PenBodyParameterVM("RubberDiameter", "10", ParamName.RubberDiameter),
+            new PenBodyParameterVM("InnerDiameter", "5", ParamName.InnerDiameter)
+        };
+
         /// <summary>
         /// Реализация интерфейса IDataErrorInfo.
         /// </summary>
@@ -147,118 +131,24 @@ namespace PenBody_CadUI.ViewModels
             {
                 string error = null;
 
-                switch (propertyName)
+                var property = GetProperty(propertyName);
+
+                if (property.Value.Trim() == "")
                 {
-                    case nameof(MainLength):
-                        //TODO: Duplication
-                        if (MainLength.Trim() == "")
-                        {
-                            error = "Необходимо ввести число";
-                        }
-                        else if (!Regex.IsMatch(MainLength, _doubleRegex))
-                        {
-                            error = "Неверный формат числа";
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _penBodyParametersList[ParamName.MainLength] = double.Parse(MainLength);
-                            }
-                            catch (Exception e)
-                            {
-                                error = e.Message;
-                            }
-                        }
-                        break;
-                    case "RubberLength":
-                        //TODO: Duplication
-                        if (RubberLength.Trim() == "")
-                        {
-                            error = "Необходимо ввести число";
-                        }
-                        else if (!Regex.IsMatch(RubberLength, _doubleRegex))
-                        {
-                            error = "Неверный формат числа";
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _penBodyParametersList[ParamName.RubberLength] = double.Parse(RubberLength);
-                            }
-                            catch (Exception e)
-                            {
-                                error = e.Message;
-                            }
-                        }
-                        break;
-                    case "MainDiameter":
-                        //TODO: Duplication
-                        if (MainDiameter.Trim() == "")
-                        {
-                            error = "Необходимо ввести число";
-                        }
-                        else if (!Regex.IsMatch(MainDiameter, _doubleRegex))
-                        {
-                            error = "Неверный формат числа";
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _penBodyParametersList[ParamName.MainDiameter] = double.Parse(MainDiameter);
-                            }
-                            catch (Exception e)
-                            {
-                                error = e.Message;
-                            }
-                        }
-                        break;
-                    case "InnerDiameter":
-                        //TODO: Duplication
-                        if (InnerDiameter.Trim() == "")
-                        {
-                            error = "Необходимо ввести число";
-                        }
-                        else if (!Regex.IsMatch(InnerDiameter, _doubleRegex))
-                        {
-                            error = "Неверный формат числа";
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _penBodyParametersList[ParamName.InnerDiameter] = double.Parse(InnerDiameter);
-                            }
-                            catch (Exception e)
-                            {
-                                error = e.Message;
-                            }
-                        }
-                        break;
-                    case "RubberDiameter":
-                        //TODO: Duplication
-                        if (RubberDiameter.Trim() == "")
-                        {
-                            error = "Необходимо ввести число";
-                        }
-                        else if (!Regex.IsMatch(RubberDiameter, _doubleRegex))
-                        {
-                            error = "Неверный формат числа";
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _penBodyParametersList[ParamName.RubberDiameter] = double.Parse(RubberDiameter);
-                            }
-                            catch (Exception e)
-                            {
-                                error = e.Message;
-                            }
-                        }
-                        break;
+                    return "Необходимо ввести число";
+                }
+                else if (!Regex.IsMatch(property.Value, _doubleRegex))
+                {
+                    return "Неверный формат числа";
+                }
+
+                try
+                {
+                    _penBodyParametersList[property.ParamName] = double.Parse(property.Value);
+                }
+                catch (Exception e)
+                {
+                    error = e.Message;
                 }
                 Error = error;
 
@@ -266,6 +156,9 @@ namespace PenBody_CadUI.ViewModels
             }
 
         }
+
+        private PenBodyParameterVM GetProperty(string name) => 
+            _propertyMap.Find((property) => property.Name == name);
 
         /// <summary>
         /// Метод установки значений по умолчанию.

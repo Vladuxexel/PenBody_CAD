@@ -101,6 +101,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Compile Include="ViewModels\PenBodyParameterVM.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

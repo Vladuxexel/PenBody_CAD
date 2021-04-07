@@ -193,7 +193,7 @@ namespace PenBody_CadUI.ViewModel
         {
             if (PenBodyParametersListVM.Error == null)
             {
-                PenBodyParametersListVM.UpdateAll();
+                //PenBodyParametersListVM.UpdateAll();
                 if (!IsLoading)
                 {
                     SetState(State.Ok);
