@@ -14,7 +14,7 @@
         <vm:MainWindowVM/>
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary Source="CadStyles.xaml"/>
+        <ResourceDictionary Source="../Styles/CadStyles.xaml"/>
     </Window.Resources>
     <DockPanel Background="#c4c4c4">
         <TextBlock DockPanel.Dock="Top" Text="Параметры построения" Style="{StaticResource Header}"/>

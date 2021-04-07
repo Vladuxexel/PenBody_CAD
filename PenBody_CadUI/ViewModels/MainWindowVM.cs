@@ -1,6 +1,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using PenBody_Cad;
+using PenBody_CadUI.Enums;
 using PenBody_CadUI.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -204,15 +205,5 @@ namespace PenBody_CadUI.ViewModel
 
             return false;
         }
-    }
-
-    /// <summary>
-    /// Перечисление состояний плагина.
-    /// </summary>
-    public enum State
-    {
-        Ok,
-        Warning,
-        Loading
     }
 }
