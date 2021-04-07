@@ -173,7 +173,6 @@ namespace PenBody_CadUI.ViewModel
 
         private async void Build()
         {
-            PenBodyParametersListVM.UpdateAll();
             SetState(State.Loading);
             await Task.Factory.StartNew(() =>
             {
@@ -191,9 +190,8 @@ namespace PenBody_CadUI.ViewModel
 
         private bool CanBuild()
         {
-            if (PenBodyParametersListVM.Error == null)
+            if (PenBodyParametersListVM.IsValid())
             {
-                //PenBodyParametersListVM.UpdateAll();
                 if (!IsLoading)
                 {
                     SetState(State.Ok);
