@@ -30,7 +30,9 @@ namespace PenBody_Cad
                 var creationResult = CreateCompasInstance(out kompas);
                 if (!creationResult)
                 {
-                    throw new ArgumentException("Не удалось создать новый экземпляр КОМПАС-3D.");
+                    throw new ArgumentException(
+                        "Не удалось создать новый экземпляр КОМПАС-3D."
+                    );
                 }
             }
             kompas.Visible = true;

@@ -15,7 +15,9 @@ namespace PenBody_Cad.UnitTests
             TestName = "Значение меньше минимума")]
         [TestCase(ParamName.MainLength, 30, 40, 50,
             TestName = "Значение больше максимума")]
-        public void ParameterConstructor_BadValue(ParamName name, double max, double min, double value)
+        public void ParameterConstructor_BadValue(
+            ParamName name, double max, double min, double value
+        )
         {
             //Act
             Assert.Throws<ArgumentException>(
@@ -54,8 +56,10 @@ namespace PenBody_Cad.UnitTests
         }
 
         [TestCase(25, Description = "Позитивный тест установки значения параметра")]
-        [TestCase(30, Description = "Позитивный тест установки значения параметра на границе максимального")]
-        [TestCase(10, Description = "Позитивный тест установки значения параметра на границе минимального")]
+        [TestCase(30, Description = 
+            "Позитивный тест установки значения параметра на границе максимального")]
+        [TestCase(10, Description = 
+            "Позитивный тест установки значения параметра на границе минимального")]
         public void Parameter_Value_GoodValue(double goodValue)
         {
             //Setup

@@ -8,15 +8,19 @@ namespace PenBody_Cad.UnitTests
     public class PenBodyParametersListTests
     {
         [TestCase(ParamName.MainLength, 30,
-            TestName = "Длина основной части превышает длину части для резинки меньше, чем в 2 раза")]
+            TestName = "Длина основной части превышает" +
+            " длину части для резинки меньше, чем в 2 раза")]
         [TestCase(ParamName.RubberLength, 25,
-            TestName = "Длина части для резинки превышает половину длины основной части")]
+            TestName = "Длина части для резинки превышает" +
+            " половину длины основной части")]
         [TestCase(ParamName.RubberDiameter, 16,
             TestName = "Диаметр части для резинки больше диаметра ручки")]
         [TestCase(ParamName.RubberDiameter, 15,
-            TestName = "Диаметр части для резинки меньше диаметра ручки меньше, чем на 2 мм")]
+            TestName = "Диаметр части для резинки меньше" +
+            " диаметра ручки меньше, чем на 2 мм")]
         [TestCase(ParamName.InnerDiameter, 16,
-            TestName = "Внутренний диаметр меньше диаметра части для резинки меньше, чем на 2 мм")]
+            TestName = "Внутренний диаметр меньше" +
+            " диаметра части для резинки меньше, чем на 2 мм")]
         public void Indexer_Set_BadValue(ParamName name, double badValue)
         {
             //Setup

@@ -40,13 +40,17 @@ namespace PenBody_Cad
                 var compareResMax = Comparer<double>.Default.Compare(value, _max);
                 if (compareResMax > 0)
                 {
-                    throw new ArgumentException($"Значение параметра не должно превышать {_max}");
+                    throw new ArgumentException(
+                        $"Значение параметра не должно превышать {_max}"
+                    );
                 }
 
                 var compareResMin = Comparer<double>.Default.Compare(value, _min);
                 if(compareResMin < 0)
                 {
-                    throw new ArgumentException($"Значение параметра не должно быть меньше {_min}");
+                    throw new ArgumentException(
+                        $"Значение параметра не должно быть меньше {_min}"
+                    );
                 }
 
                 _value = value;
@@ -64,7 +68,9 @@ namespace PenBody_Cad
                 var compareResult = Comparer<double>.Default.Compare(value, _max);
                 if (compareResult > 0)
                 {
-                    throw new ArgumentException("Минимальное значение не может быть больше максимального");
+                    throw new ArgumentException(
+                        "Минимальное значение не может быть больше максимального"
+                    );
                 }
 
                 _min = value;
@@ -82,7 +88,9 @@ namespace PenBody_Cad
                 var compareResult = Comparer<double>.Default.Compare(value, _min);
                 if (compareResult < 0)
                 {
-                    throw new ArgumentException("Максимальное значение не может быть меньше минимального");
+                    throw new ArgumentException(
+                        "Максимальное значение не может быть меньше минимального"
+                    );
                 }
 
                 _max = value;
@@ -96,7 +104,9 @@ namespace PenBody_Cad
         /// <param name="max">Максимальная граница параметра.</param>
         /// <param name="min">Минимальная граница параметра.</param>
         /// <param name="value">Значение параметра.</param>
-        public PenBodyParameter(ParamName paramName, double max, double min, double value)
+        public PenBodyParameter(
+            ParamName paramName, double max, double min, double value
+        )
         {
             Name = paramName;
             Max = max;

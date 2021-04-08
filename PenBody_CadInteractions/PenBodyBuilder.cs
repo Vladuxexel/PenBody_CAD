@@ -200,7 +200,9 @@ namespace PenBody_Cad
         private void CreateNewPlane()
         {
             var newPlaneDefinition = (ksPlaneOffsetDefinition)_currentPlane.GetDefinition();
-            newPlaneDefinition.SetPlane((ksEntity)_detail.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ));
+            newPlaneDefinition.SetPlane((ksEntity)_detail.GetDefaultEntity(
+                (short)Obj3dType.o3d_planeXOZ)
+            );
             newPlaneDefinition.direction = true;
             newPlaneDefinition.offset = 5;
             _currentPlane.Create();
@@ -212,8 +214,11 @@ namespace PenBody_Cad
         private void Extrude()
         {
             var entityExtrude = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_baseExtrusion);
-            var entityExtrudeDefinition = (ksBaseExtrusionDefinition)entityExtrude.GetDefinition();
-            entityExtrudeDefinition.SetSideParam(true, 0, _penBodyParametersList[ParamName.MainLength]);
+            var entityExtrudeDefinition = 
+                (ksBaseExtrusionDefinition)entityExtrude.GetDefinition();
+            entityExtrudeDefinition.SetSideParam(
+                true, 0, _penBodyParametersList[ParamName.MainLength]
+            );
             entityExtrudeDefinition.SetSketch(_entitySketch);
             entityExtrude.Create();
         }

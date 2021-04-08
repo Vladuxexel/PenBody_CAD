@@ -95,11 +95,16 @@ namespace PenBody_Cad
         /// </summary>
         private readonly List<PenBodyParameter> _parameters = new List<PenBodyParameter>
         {
-            new PenBodyParameter(ParamName.MainLength, MaxMainLength, MinMainLength, DefaultMainLength),
-            new PenBodyParameter(ParamName.RubberLength, MaxRubberLength, MinRubberLength, DefaultRubberLength),
-            new PenBodyParameter(ParamName.MainDiameter, MaxMainDiameter, MinMainDiameter, DefaultMainDiameter),
-            new PenBodyParameter(ParamName.RubberDiameter, MaxRubberDiameter, MinRubberDiameter, DefaultRubberDiameter),
-            new PenBodyParameter(ParamName.InnerDiameter, MaxInnerDiameter, MinInnerDiameter, DefaultInnerDiameter)
+            new PenBodyParameter(ParamName.MainLength, 
+                MaxMainLength, MinMainLength, DefaultMainLength),
+            new PenBodyParameter(ParamName.RubberLength,
+                MaxRubberLength, MinRubberLength, DefaultRubberLength),
+            new PenBodyParameter(ParamName.MainDiameter,
+                MaxMainDiameter, MinMainDiameter, DefaultMainDiameter),
+            new PenBodyParameter(ParamName.RubberDiameter,
+                MaxRubberDiameter, MinRubberDiameter, DefaultRubberDiameter),
+            new PenBodyParameter(ParamName.InnerDiameter,
+                MaxInnerDiameter, MinInnerDiameter, DefaultInnerDiameter)
         };
 
         /// <summary>
@@ -117,34 +122,43 @@ namespace PenBody_Cad
                     case ParamName.MainLength:
                         if (value < GetParam(ParamName.RubberLength).Value * 2)
                         {
-                            throw new ArgumentException("Длина основной части ручки должна быть " +
-                                "минимум в 2 раза больше части для резинки");
+                            throw new ArgumentException(
+                                "Длина основной части ручки должна быть " +
+                                "минимум в 2 раза больше части для резинки"
+                            );
                         }
                         break;
                     case ParamName.RubberLength:
                         if (value > GetParam(ParamName.MainLength).Value * 0.5)
                         {
-                            throw new ArgumentException("Длина части для резинки не должна превышать " +
-                                "половину длины основной части");
+                            throw new ArgumentException(
+                                "Длина части для резинки не должна превышать " +
+                                "половину длины основной части"
+                            );
                         }
                         break;
                     case ParamName.RubberDiameter:
                         if (value > GetParam(ParamName.MainDiameter).Value)
                         {
-                            throw new ArgumentException("Диаметр части для резинки не " +
-                                "должен быть больше диаметра самой ручки");
+                            throw new ArgumentException(
+                                "Диаметр части для резинки не " +
+                                "должен быть больше диаметра самой ручки"
+                            );
                         }
                         if (GetParam(ParamName.MainDiameter).Value - value < 2)
                         {
-                            throw new ArgumentException("Диаметр части для резинки должен быть " +
-                                "минимум на 2 мм меньше диаметра основной части");
+                            throw new ArgumentException(
+                                "Диаметр части для резинки должен быть " +
+                                "минимум на 2 мм меньше диаметра основной части"
+                            );
                         }
                         break;
                     case ParamName.InnerDiameter:
                         if (GetParam(ParamName.RubberDiameter).Value - value < 2)
                         {
                             throw new ArgumentException("Внутренний диаметр должен быть " +
-                                "минимум на 2 мм меньше диаметра части для резинки");
+                                "минимум на 2 мм меньше диаметра части для резинки"
+                            );
                         }
                         break;
                 }
