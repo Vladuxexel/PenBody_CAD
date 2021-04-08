@@ -13,52 +13,52 @@ namespace PenBody_CadUI.ViewModel
     public class MainWindowVM : ViewModelBase
     {
         /// <summary>
-        /// ��������� ����������� ��������� �������.
+        /// Сообщение нормального состояния плагина.
         /// </summary>
-        private const string WAITING_MSG = "������ ����� � ����������";
+        private const string WAITING_MSG = "Плагин готов к построению";
 
         /// <summary>
-        /// ��������� ��������� ������� ��� ��������.
+        /// Сообщение состояния плагина при загрузке.
         /// </summary>
-        private const string LOADING_MSG = "������ ������-3D...";
+        private const string LOADING_MSG = "Запуск КОМПАС-3D...";
 
         /// <summary>
-        /// ��������� ��������� ������� ��� ������.
+        /// Сообщение состояния плагина при ошибке.
         /// </summary>
-        private const string ERROR_MSG = "����������, ������� ���������� ���������";
+        private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
 
         /// <summary>
-        /// ���� ��������� �������� ������-3D.
+        /// Флаг состояния загрузки Компас-3D.
         /// </summary>
         private bool _isLoading;
 
         /// <summary>
-        /// ���� ������ "��".
+        /// Цвет иконки "Ок".
         /// </summary>
         private SolidColorBrush _okIconColor;
 
         /// <summary>
-        /// ���� ������ "��������������".
+        /// Цвет иконки "Предупреждение".
         /// </summary>
         private SolidColorBrush _warningIconColor;
 
         /// <summary>
-        /// ��������� ��������� �������.
+        /// Сообщение состояния плагина.
         /// </summary>
         private string _message;
 
         /// <summary>
-        /// ���� ��� ������ ������ ���������� ������.
+        /// Строитель детали.
         /// </summary>
         private readonly PenBodyBuilder _penBodyBuilder;
 
         /// <summary>
-        /// �������� ��������� ���������� ������.
+        /// Вью-модель параметров.
         /// </summary>
         public PenBodyParametersListVM PenBodyParametersListVM { get; set; }
 
         /// <summary>
-        /// ����������� ������ ���-������ ����.
+        /// Конструктор класса вью-модели окна.
         /// </summary>
         public MainWindowVM()
         {
@@ -70,7 +70,7 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// �������� ��������� ��������� �������.
+        /// Свойство сообщения состояния плагина.
         /// </summary>
         public string Message
         {
@@ -83,7 +83,7 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// �������� ����� ��������� �������� ������-3D.
+        /// Свойство флага состояния загрузки Компас-3D.
         /// </summary>
         public bool IsLoading
         {
@@ -96,7 +96,7 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// �������� ����� ������ "��".
+        /// Свойство цвета иконки "Ок".
         /// </summary>
         public SolidColorBrush OkIconColor
         {
@@ -109,7 +109,7 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// �������� ����� ������ "��������������".
+        /// Свойство цвета иконки "Предупреждение".
         /// </summary>
         public SolidColorBrush WarningIconColor
         {
@@ -122,19 +122,19 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// ������� ������ ���������� �� �����������.
+        /// Команда сброса параметров до стандартных.
         /// </summary>
         public RelayCommand ResetCommand { get; private set; }
 
         /// <summary>
-        /// ������� ������� ���������� ������.
+        /// Команда запуска построения детали.
         /// </summary>
         public RelayCommand BuildCommand { get; private set; }
 
         /// <summary>
-        /// ����� ��������� ��������� �������.
+        /// Метод установки состояния плагина.
         /// </summary>
-        /// <param name="status">���������.</param>
+        /// <param name="status">Статус.</param>
         private void SetState(State status)
         {
             switch (status)
@@ -161,7 +161,7 @@ namespace PenBody_CadUI.ViewModel
         }
 
         /// <summary>
-        /// ����� ������ ���������� ������ �� �����������.
+        /// Метод сброса параметров модели до стандартных.
         /// </summary>
         private void SetDefaultParams()
         {
@@ -171,6 +171,9 @@ namespace PenBody_CadUI.ViewModel
             WarningIconColor = new SolidColorBrush(Colors.Gray);
         }
 
+        /// <summary>
+        /// Метод построения модели.
+        /// </summary>
         private async void Build()
         {
             SetState(State.Loading);
@@ -188,6 +191,10 @@ namespace PenBody_CadUI.ViewModel
             SetState(State.Ok);
         }
 
+        /// <summary>
+        /// Определение возможности построения модели.
+        /// </summary>
+        /// <returns></returns>
         private bool CanBuild()
         {
             if (PenBodyParametersListVM.IsValid())

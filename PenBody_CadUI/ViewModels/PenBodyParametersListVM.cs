@@ -111,12 +111,11 @@ namespace PenBody_CadUI.ViewModels
         private List<PenBodyParameterVM> _propertyMap = 
             new List<PenBodyParameterVM>()
         {
-                //TODO: nameof
-            new PenBodyParameterVM("MainLength", "40", ParamName.MainLength),
-            new PenBodyParameterVM("RubberLength", "20", ParamName.RubberLength),
-            new PenBodyParameterVM("MainDiameter", "15", ParamName.MainDiameter),
-            new PenBodyParameterVM("RubberDiameter", "10", ParamName.RubberDiameter),
-            new PenBodyParameterVM("InnerDiameter", "5", ParamName.InnerDiameter)
+            new PenBodyParameterVM(nameof(MainLength), "40", ParamName.MainLength),
+            new PenBodyParameterVM(nameof(RubberLength), "20", ParamName.RubberLength),
+            new PenBodyParameterVM(nameof(MainDiameter), "15", ParamName.MainDiameter),
+            new PenBodyParameterVM(nameof(RubberDiameter), "10", ParamName.RubberDiameter),
+            new PenBodyParameterVM(nameof(InnerDiameter), "5", ParamName.InnerDiameter)
         };
 
         /// <summary>
