@@ -44,7 +44,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 GetProperty(nameof(MainLength)).Value = DotToComma(value);
-                RaisePropertyChanged(nameof(MainLength));
+                RaisePropertyChanged(string.Empty);
             }
         }
 
@@ -57,7 +57,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 GetProperty(nameof(RubberLength)).Value = DotToComma(value);
-                RaisePropertyChanged(nameof(RubberLength));
+                RaisePropertyChanged(string.Empty);
             }
         }
 
@@ -70,7 +70,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 GetProperty(nameof(MainDiameter)).Value = DotToComma(value);
-                RaisePropertyChanged(nameof(MainDiameter));
+                RaisePropertyChanged(string.Empty);
             }
         }
 
@@ -83,7 +83,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 GetProperty(nameof(InnerDiameter)).Value = DotToComma(value);
-                RaisePropertyChanged(nameof(InnerDiameter));
+                RaisePropertyChanged(string.Empty);
             }
         }
 
@@ -96,7 +96,7 @@ namespace PenBody_CadUI.ViewModels
             set
             {
                 GetProperty(nameof(RubberDiameter)).Value = DotToComma(value);
-                RaisePropertyChanged(nameof(RubberDiameter));
+                RaisePropertyChanged(string.Empty);
             }
         }
 
@@ -188,22 +188,6 @@ namespace PenBody_CadUI.ViewModels
         }
 
         public PenBodyParametersList GetValidModel() => PenBodyParametersList;
-
-        ///// <summary>
-        ///// Метод обновления всех свойств (Для поддержания актуального состояния валидации).
-        ///// </summary>
-        //public void UpdateAll(string propertyName = nameof(MainLength))
-        //{
-        //    foreach (var item in _propertyMap)
-        //    {
-        //        if (item.Name == propertyName)
-        //        {
-        //            continue;
-        //        }
-        //        RaisePropertyChanged(item.Name);
-        //    }
-        //    RaisePropertyChanged(propertyName);
-        //}
 
         /// <summary>
         /// Метод для замены точки на запятую.

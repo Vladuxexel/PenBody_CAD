@@ -185,7 +185,7 @@ namespace PenBody_CadUI.ViewModel
                 }
                 catch (ArgumentException e)
                 {
-                    MessageBox.Show(e.Message, "��������������");
+                    MessageBox.Show(e.Message, "Предупреждение");
                 }
             });
             SetState(State.Ok);
@@ -197,6 +197,7 @@ namespace PenBody_CadUI.ViewModel
         /// <returns></returns>
         private bool CanBuild()
         {
+            PenBodyParametersListVM.RaisePropertyChanged(string.Empty);
             if (PenBodyParametersListVM.IsValid())
             {
                 if (!IsLoading)

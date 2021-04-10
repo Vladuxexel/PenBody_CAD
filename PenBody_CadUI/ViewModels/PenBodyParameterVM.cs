@@ -1,19 +1,39 @@
-﻿using PenBody_Cad.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GalaSoft.MvvmLight;
+using PenBody_Cad.Enums;
 
 namespace PenBody_CadUI.ViewModels
 {
-    public class PenBodyParameterVM
+    /// <summary>
+    /// Вью-модель параметра.
+    /// </summary>
+    public class PenBodyParameterVM : ViewModelBase
     {
+        /// <summary>
+        /// Название параметра.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Значене параметра.
+        /// </summary>
         public string Value { get; set; }
+
+        /// <summary>
+        /// Имя параметра в соответствии с моделью.
+        /// </summary>
         public ParamName ParamName { get; set; }
+
+        /// <summary>
+        /// Корректность параметра.
+        /// </summary>
         public bool IsValid { get; set; }
 
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="name">Название параметра.</param>
+        /// <param name="value">Значение параметра.</param>
+        /// <param name="paramName">Имя параметра в соответствии с моделью.</param>
         public PenBodyParameterVM(string name, string value, ParamName paramName)
         {
             Name = name;
