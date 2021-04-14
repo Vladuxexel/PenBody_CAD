@@ -6,6 +6,7 @@
         RubberLength,
         MainDiameter,
         RubberDiameter,
-        InnerDiameter
+        InnerDiameter,
+        EdgesNumber
     }
 }

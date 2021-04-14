@@ -34,6 +34,11 @@ namespace PenBody_Cad
         /// Максимальный внутренний диаметр ручки.
         /// </summary>
         private const double MaxInnerDiameter = 7;
+
+        /// <summary>
+        /// Максимальное количество ребёр ручки.
+        /// </summary>
+        private const double MaxEdgesNumber = 10;
         #endregion
 
         #region Минимальные значения параметров
@@ -61,6 +66,11 @@ namespace PenBody_Cad
         /// Минимальный внутренний диаметр ручки.
         /// </summary>
         private const double MinInnerDiameter = 2;
+
+        /// <summary>
+        /// Минимальное количество ребёр ручки.
+        /// </summary>
+        private const double MinEdgesNumber = 3;
         #endregion
 
         #region Стандартные значения параметров
@@ -88,6 +98,11 @@ namespace PenBody_Cad
         /// Внутренний диаметр ручки по умолчанию.
         /// </summary>
         private const double DefaultInnerDiameter = 5;
+
+        /// <summary>
+        /// Максимальное количество ребёр ручки.
+        /// </summary>
+        private const double DefaultEdgesNumber = 6;
         #endregion
 
         /// <summary>
@@ -104,8 +119,12 @@ namespace PenBody_Cad
             new PenBodyParameter(ParamName.RubberDiameter,
                 MaxRubberDiameter, MinRubberDiameter, DefaultRubberDiameter),
             new PenBodyParameter(ParamName.InnerDiameter,
-                MaxInnerDiameter, MinInnerDiameter, DefaultInnerDiameter)
+                MaxInnerDiameter, MinInnerDiameter, DefaultInnerDiameter),
+            new PenBodyParameter(ParamName.EdgesNumber,
+                MaxEdgesNumber, MinEdgesNumber, DefaultEdgesNumber)
         };
+
+        public bool IsRibbed = true;
 
         /// <summary>
         /// Индексатор для списка параметров.

@@ -2,6 +2,7 @@
 using Kompas6Constants;
 using Kompas6Constants3D;
 using PenBody_Cad.Enums;
+using System;
 using System.Windows;
 
 namespace PenBody_Cad
@@ -167,8 +168,10 @@ namespace PenBody_Cad
         {
             var poly = (ksRegularPolygonParam)_cadConnector.Kompas
                 .GetParamStruct((short)StructType2DEnum.ko_RegularPolygonParam);
+            var edgesNumber = _penBodyParametersList[ParamName.EdgesNumber];
+
             poly.ang = 0;
-            poly.count = 6;
+            poly.count = (int)Math.Round(edgesNumber);
             poly.describe = true;
             poly.radius = 0.87 * _penBodyParametersList[ParamName.MainDiameter] / 2;
             poly.style = 1;

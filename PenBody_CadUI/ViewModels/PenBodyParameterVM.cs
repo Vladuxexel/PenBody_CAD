@@ -34,10 +34,9 @@ namespace PenBody_CadUI.ViewModels
         /// <param name="name">Название параметра.</param>
         /// <param name="value">Значение параметра.</param>
         /// <param name="paramName">Имя параметра в соответствии с моделью.</param>
-        public PenBodyParameterVM(string name, string value, ParamName paramName)
+        public PenBodyParameterVM(string name, ParamName paramName)
         {
             Name = name;
-            Value = value;
             ParamName = paramName;
             IsValid = true;
         }

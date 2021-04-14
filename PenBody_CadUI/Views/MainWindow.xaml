@@ -41,6 +41,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Длина основной части (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="0" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
@@ -61,6 +62,10 @@
                     <TextBlock Grid.Column="0" Grid.Row="4" Text="Внутренний диаметр (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="4" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.InnerDiameter, 
+                                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Количество ребер:"/>
+                    <TextBox Grid.Column="1" Grid.Row="5" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
+                             Text="{Binding PenBodyParametersListVM.EdgesNumber, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 </Grid>
             </Border>

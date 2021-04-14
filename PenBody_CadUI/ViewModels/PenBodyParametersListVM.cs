@@ -88,6 +88,19 @@ namespace PenBody_CadUI.ViewModels
         }
 
         /// <summary>
+        /// Свойство количества ребёр ручки.
+        /// </summary>
+        public string EdgesNumber
+        {
+            get => GetProperty(nameof(EdgesNumber)).Value;
+            set
+            {
+                GetProperty(nameof(EdgesNumber)).Value = DotToComma(value);
+                RaisePropertyChanged(nameof(EdgesNumber));
+            }
+        }
+
+        /// <summary>
         /// Свойство длины части для резинки.
         /// </summary>
         public string RubberDiameter
@@ -111,11 +124,12 @@ namespace PenBody_CadUI.ViewModels
         private List<PenBodyParameterVM> _propertyMap = 
             new List<PenBodyParameterVM>()
         {
-            new PenBodyParameterVM(nameof(MainLength), "40", ParamName.MainLength),
-            new PenBodyParameterVM(nameof(RubberLength), "20", ParamName.RubberLength),
-            new PenBodyParameterVM(nameof(MainDiameter), "15", ParamName.MainDiameter),
-            new PenBodyParameterVM(nameof(RubberDiameter), "10", ParamName.RubberDiameter),
-            new PenBodyParameterVM(nameof(InnerDiameter), "5", ParamName.InnerDiameter)
+            new PenBodyParameterVM(nameof(MainLength), ParamName.MainLength),
+            new PenBodyParameterVM(nameof(RubberLength), ParamName.RubberLength),
+            new PenBodyParameterVM(nameof(MainDiameter), ParamName.MainDiameter),
+            new PenBodyParameterVM(nameof(RubberDiameter), ParamName.RubberDiameter),
+            new PenBodyParameterVM(nameof(InnerDiameter), ParamName.InnerDiameter),
+            new PenBodyParameterVM(nameof(EdgesNumber), ParamName.EdgesNumber)
         };
 
         /// <summary>
