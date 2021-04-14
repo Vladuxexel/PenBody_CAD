@@ -8,12 +8,18 @@ using System.Text.RegularExpressions;
 
 namespace PenBody_CadUI.ViewModels
 {
-    public class PenBodyParametersListVM : ViewModelBase, IDataErrorInfo
+    public class PenBodyParametersListVM : 
+        ViewModelBase, IDataErrorInfo
     {
         /// <summary>
         /// Регулярное выражения для числа типа double.
         /// </summary>
         private const string _doubleRegex = "^[0-9]*[.,]?[0-9]+$";
+
+        /// <summary>
+        /// Регулярное выражения для числа типа int.
+        /// </summary>
+        private const string _intRegex = "^[0-9]+$";
 
         /// <summary>
         /// Флаг наличия рёбер у корпуса ручки.
@@ -64,7 +70,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(MainLength)).Value;
             set
             {
-                GetProperty(nameof(MainLength)).Value = DotToComma(value);
+                GetProperty(nameof(MainLength)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(string.Empty);
             }
         }
@@ -77,7 +84,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(RubberLength)).Value;
             set
             {
-                GetProperty(nameof(RubberLength)).Value = DotToComma(value);
+                GetProperty(nameof(RubberLength)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(string.Empty);
             }
         }
@@ -90,7 +98,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(MainDiameter)).Value;
             set
             {
-                GetProperty(nameof(MainDiameter)).Value = DotToComma(value);
+                GetProperty(nameof(MainDiameter)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(string.Empty);
             }
         }
@@ -103,7 +112,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(InnerDiameter)).Value;
             set
             {
-                GetProperty(nameof(InnerDiameter)).Value = DotToComma(value);
+                GetProperty(nameof(InnerDiameter)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(string.Empty);
             }
         }
@@ -116,7 +126,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(EdgesNumber)).Value;
             set
             {
-                GetProperty(nameof(EdgesNumber)).Value = DotToComma(value);
+                GetProperty(nameof(EdgesNumber)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(nameof(EdgesNumber));
             }
         }
@@ -129,7 +140,8 @@ namespace PenBody_CadUI.ViewModels
             get => GetProperty(nameof(RubberDiameter)).Value;
             set
             {
-                GetProperty(nameof(RubberDiameter)).Value = DotToComma(value);
+                GetProperty(nameof(RubberDiameter)).Value =
+                    DotToComma(value);
                 RaisePropertyChanged(string.Empty);
             }
         }
@@ -149,18 +161,26 @@ namespace PenBody_CadUI.ViewModels
         private List<PenBodyParameterVM> _propertyMap = 
             new List<PenBodyParameterVM>()
         {
-            new PenBodyParameterVM(nameof(MainLength), ParamName.MainLength),
-            new PenBodyParameterVM(nameof(RubberLength), ParamName.RubberLength),
-            new PenBodyParameterVM(nameof(MainDiameter), ParamName.MainDiameter),
-            new PenBodyParameterVM(nameof(RubberDiameter), ParamName.RubberDiameter),
-            new PenBodyParameterVM(nameof(InnerDiameter), ParamName.InnerDiameter),
-            new PenBodyParameterVM(nameof(EdgesNumber), ParamName.EdgesNumber)
+            new PenBodyParameterVM(
+                nameof(MainLength), ParamName.MainLength),
+            new PenBodyParameterVM(
+                nameof(RubberLength), ParamName.RubberLength),
+            new PenBodyParameterVM(
+                nameof(MainDiameter), ParamName.MainDiameter),
+            new PenBodyParameterVM(
+                nameof(RubberDiameter), ParamName.RubberDiameter),
+            new PenBodyParameterVM(
+                nameof(InnerDiameter), ParamName.InnerDiameter),
+            new PenBodyParameterVM(
+                nameof(EdgesNumber), ParamName.EdgesNumber)
         };
 
         /// <summary>
         /// Реализация интерфейса IDataErrorInfo.
         /// </summary>
-        /// <param name="propertyName">Имя валидируемого свойства.</param>
+        /// <param name="propertyName">
+        /// Имя валидируемого свойства.
+        /// </param>
         /// <returns>Текст ошибки.</returns>
         public string this[string propertyName]
         {
@@ -174,15 +194,26 @@ namespace PenBody_CadUI.ViewModels
                 {
                     error = "Необходимо ввести число";
                 }
-                else if (!Regex.IsMatch(property.Value, _doubleRegex))
+                else if (!Regex.IsMatch(property.Value, _doubleRegex)
+                    || !Regex.IsMatch(property.Value, _intRegex))
                 {
-                    error = "Неверный формат числа";
+                    if (property.ParamName == ParamName.EdgesNumber)
+                    {
+                        error = "Значение параметра " +
+                            "должно представляться целым числом";
+                    }
+                    else
+                    {
+                        error = "Значение параметра " +
+                            "должно представляться дробным числом";
+                    }
                 }
                 else
                 {
                     try
                     {
-                        _penBodyParametersList[property.ParamName] = double.Parse(property.Value);
+                        _penBodyParametersList[property.ParamName] =
+                            double.Parse(property.Value);
                     }
                     catch (Exception e)
                     {
@@ -230,7 +261,8 @@ namespace PenBody_CadUI.ViewModels
             PenBodyParametersList = new PenBodyParametersList();
             foreach(var item in _propertyMap)
             {
-                item.Value = PenBodyParametersList[item.ParamName].ToString();
+                item.Value = 
+                    PenBodyParametersList[item.ParamName].ToString();
                 RaisePropertyChanged(item.Name);
             }
         }
@@ -239,13 +271,15 @@ namespace PenBody_CadUI.ViewModels
         /// Получение корректной модели.
         /// </summary>
         /// <returns>Экземпляр класса модели.</returns>
-        public PenBodyParametersList GetValidModel() => PenBodyParametersList;
+        public PenBodyParametersList GetValidModel() =>
+            PenBodyParametersList;
 
         /// <summary>
         /// Метод для замены точки на запятую.
         /// </summary>
         /// <param name="str">Входная строка.</param>
         /// <returns>Строка с выполненной заменой.</returns>
-        private string DotToComma(string str) => str.Replace('.', ',').Trim();
+        private string DotToComma(string str) =>
+            str.Replace('.', ',').Trim();
     }
 }
