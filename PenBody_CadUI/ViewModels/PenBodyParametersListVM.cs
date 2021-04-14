@@ -25,6 +25,9 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         public string Error { get; private set; }
 
+        /// <summary>
+        /// Свойство списка параметров.
+        /// </summary>
         public PenBodyParametersList PenBodyParametersList
         {
             get => _penBodyParametersList;
@@ -121,6 +124,9 @@ namespace PenBody_CadUI.ViewModels
             SetToDefault();
         }
 
+        /// <summary>
+        /// Список параметров.
+        /// </summary>
         private List<PenBodyParameterVM> _propertyMap = 
             new List<PenBodyParameterVM>()
         {
@@ -172,6 +178,10 @@ namespace PenBody_CadUI.ViewModels
 
         }
 
+        /// <summary>
+        /// Проверка модели на корректность.
+        /// </summary>
+        /// <returns>Корректна ли модель.</returns>
         public bool IsValid()
         {
             foreach(var item in _propertyMap)
@@ -185,6 +195,11 @@ namespace PenBody_CadUI.ViewModels
             return true;
         }
 
+        /// <summary>
+        /// Получение свойства из списка.
+        /// </summary>
+        /// <param name="name">Имя свойства.</param>
+        /// <returns>Элемент списка параметров.</returns>
         private PenBodyParameterVM GetProperty(string name) => 
             _propertyMap.Find((property) => property.Name == name);
 
@@ -201,6 +216,10 @@ namespace PenBody_CadUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Получение корректной модели.
+        /// </summary>
+        /// <returns>Экземпляр класса модели.</returns>
         public PenBodyParametersList GetValidModel() => PenBodyParametersList;
 
         /// <summary>
