@@ -69,7 +69,7 @@ namespace PenBody_Cad
             //Создание формы основной части
             _currentPlane = (ksEntity)_detail
                 .NewEntity((short)Obj3dType.o3d_planeOffset);
-            DrawPolygon();
+            DrawMainPart();
             Extrude();
         }
 
@@ -175,8 +175,9 @@ namespace PenBody_Cad
         /// <summary>
         /// Метод получения многоугольника.
         /// </summary>
-        /// <returns>Полигон</returns>
-        private ksRegularPolygonParam GetPolygon()
+        /// <param name="coeff">Коэффициент уменьшения радиуса.</param>
+        /// <returns>Полигон.</returns>
+        private ksRegularPolygonParam GetPolygon(double coeff)
         {
             var poly = (ksRegularPolygonParam)_cadConnector.Kompas
                 .GetParamStruct(
@@ -187,15 +188,12 @@ namespace PenBody_Cad
                 _penBodyParametersList[ParamName.EdgesNumber]);
             var radius = 
                 _penBodyParametersList[ParamName.MainDiameter] / 2;
-            //Коэффициент для задания радиуса полигона,
-            //чтобы он не выходил за основной диаметр
-            var coeff = 0.8;
             var polygonRadius = coeff * radius;
 
             poly.ang = 0;
             poly.count = edgesNumber;
             poly.describe = true;
-            poly.radius = coeff * polygonRadius;
+            poly.radius = polygonRadius;
             poly.style = 1;
             poly.xc = baseXOY;
             poly.yc = baseXOY;
@@ -204,55 +202,33 @@ namespace PenBody_Cad
         }
 
         /// <summary>
-        /// Метод получения многоугольника.
+        /// Метод отрисовки основной части ручки.
         /// </summary>
-        /// <returns>Полигон</returns>
-        private ksCircleParam GetCircle()
-        {
-            var circle = (ksCircleParam)_cadConnector.Kompas
-                .GetParamStruct(
-                (short)StructType2DEnum.ko_CircleParam);
-
-            //Начало координат
-            var baseXOY = 0;
-
-            var radius =
-                _penBodyParametersList[ParamName.MainDiameter] / 2;
-            //Коэффициент для задания радисуа основной части,
-            //чтобы он не выходил за основной диаметр
-            var coeff = 1;
-            var circleRadius = coeff * radius;
-
-            circle.rad = coeff * circleRadius;
-            circle.style = 1;
-            circle.xc = baseXOY;
-            circle.yc = baseXOY;
-
-            return circle;
-        }
-
-        /// <summary>
-        /// Метод отрисовки полого полигона.
-        /// </summary>
-        private void DrawPolygon()
+        private void DrawMainPart()
         {
             CreateNewPlane();
             CreateSketch();
 
-            var poly = GetPolygon();
             var baseXOY = 0;
             var innerRadius = 
                 _penBodyParametersList[ParamName.InnerDiameter] / 2;
+            //Коэффициент для установки радиуса основной части,
+            //чтобы она не выходила за границы радиуса самой ручки
+            var coeff = 0.8;
 
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
             _sketch2D.ksCircle(baseXOY, baseXOY, innerRadius, 1);
             if (_penBodyParametersList.IsRibbed)
             {
+                var poly = GetPolygon(coeff);
                 _sketch2D.ksRegularPolygon(poly);
             }
             else
             {
-                _sketch2D.ksCircle(baseXOY, baseXOY, 0.45 * _penBodyParametersList[ParamName.MainDiameter], 1);
+                var radius = _penBodyParametersList
+                    [ParamName.MainDiameter] / 2;
+                _sketch2D
+                    .ksCircle(baseXOY, baseXOY, coeff * radius, 1);
             }
 
             _sketchDefinition.EndEdit();

@@ -139,7 +139,8 @@ namespace PenBody_CadUI.ViewModel
         /// <summary>
         /// Команда установки флага ребристости корпуса ручки.
         /// </summary>
-        public RelayCommand<bool> ChangeRibbingCommand { get; private set; }
+        public RelayCommand<bool> 
+            ChangeRibbingCommand { get; private set; }
 
 
         /// <summary>
