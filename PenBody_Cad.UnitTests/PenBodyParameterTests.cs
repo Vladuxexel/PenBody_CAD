@@ -24,11 +24,13 @@ namespace PenBody_Cad.UnitTests
                 () =>
                 {
                     //Setup
-                    var penBodyParameter = new PenBodyParameter(name, max, min, value);
+                    var penBodyParameter = 
+                    new PenBodyParameter(name, max, min, value);
                 });
         }
 
-        [Test(Description = "Позитивный тест конструктора класса параметра")]
+        [Test(Description = 
+            "Позитивный тест конструктора класса параметра")]
         public void ParameterConstructor_GoodValue()
         {
             //Setup
@@ -42,7 +44,8 @@ namespace PenBody_Cad.UnitTests
             var expectedValue = value;
 
             //Act
-            var penBodyParameter = new PenBodyParameter(name, max, min, value);
+            var penBodyParameter = 
+                new PenBodyParameter(name, max, min, value);
             var actualName = penBodyParameter.Name;
             var actualMax = penBodyParameter.Max;
             var actualMin = penBodyParameter.Min;
@@ -55,11 +58,14 @@ namespace PenBody_Cad.UnitTests
             Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [TestCase(25, Description = "Позитивный тест установки значения параметра")]
+        [TestCase(25, Description = 
+            "Позитивный тест установки значения параметра")]
         [TestCase(30, Description = 
-            "Позитивный тест установки значения параметра на границе максимального")]
+            "Позитивный тест установки " +
+            "значения параметра на границе максимального")]
         [TestCase(10, Description = 
-            "Позитивный тест установки значения параметра на границе минимального")]
+            "Позитивный тест установки " +
+            "значения параметра на границе минимального")]
         public void Parameter_Value_GoodValue(double goodValue)
         {
             //Setup
@@ -67,7 +73,8 @@ namespace PenBody_Cad.UnitTests
             var max = 30;
             var min = 10;
             var value = 20;
-            var penBodyParameter = new PenBodyParameter(name, max, min, value);
+            var penBodyParameter = 
+                new PenBodyParameter(name, max, min, value);
             var expectedValue = goodValue;
 
             //Act
@@ -79,9 +86,11 @@ namespace PenBody_Cad.UnitTests
         }
 
         [TestCase(50,
-            Description = "Значение параметра превышает максимально допустимое")]
+            Description = 
+            "Значение параметра превышает максимально допустимое")]
         [TestCase(5,
-            Description = "Значение параметра меньше минимально допустимого")]
+            Description = 
+            "Значение параметра меньше минимально допустимого")]
         public void Parameter_Value_BadValue(double badValue)
         {
             //Setup
@@ -89,7 +98,8 @@ namespace PenBody_Cad.UnitTests
             var max = 30;
             var min = 10;
             var value = 20;
-            var penBodyParameter = new PenBodyParameter(name, max, min, value);
+            var penBodyParameter = 
+                new PenBodyParameter(name, max, min, value);
 
             //Assert
             Assert.Throws<ArgumentException>(
