@@ -61,12 +61,14 @@ namespace PenBody_Cad
             InitReferences(penBodyParametersList);
 
             //Создание основы корпуса
-            _currentPlane = (ksEntity)_detail.GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
+            _currentPlane = (ksEntity)_detail
+                .GetDefaultEntity((short)Obj3dType.o3d_planeXOY);
             DrawBase();
             SpinExtrude();
 
             //Создание формы основной части
-            _currentPlane = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_planeOffset);
+            _currentPlane = (ksEntity)_detail
+                .NewEntity((short)Obj3dType.o3d_planeOffset);
             DrawPolygon();
             Extrude();
         }
@@ -76,11 +78,16 @@ namespace PenBody_Cad
         /// </summary>
         private void DrawBase()
         {
-            var mainLength = _penBodyParametersList[ParamName.MainLength];
-            var rubberLength = _penBodyParametersList[ParamName.RubberLength];
-            var mainRadius = _penBodyParametersList[ParamName.MainDiameter] / 2;
-            var rubberRadius = _penBodyParametersList[ParamName.RubberDiameter] / 2;
-            var innerRadius = _penBodyParametersList[ParamName.InnerDiameter] / 2;
+            var mainLength = 
+                _penBodyParametersList[ParamName.MainLength];
+            var rubberLength = 
+                _penBodyParametersList[ParamName.RubberLength];
+            var mainRadius = 
+                _penBodyParametersList[ParamName.MainDiameter] / 2;
+            var rubberRadius = 
+                _penBodyParametersList[ParamName.RubberDiameter] / 2;
+            var innerRadius = 
+                _penBodyParametersList[ParamName.InnerDiameter] / 2;
             //Толщина части для резьбы
             var carvingWidth = 1;
             //Высота части для резьбы
@@ -141,8 +148,10 @@ namespace PenBody_Cad
         /// </summary>
         private void CreateSketch()
         {
-            _entitySketch = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_sketch);
-            _sketchDefinition = (ksSketchDefinition)_entitySketch.GetDefinition();
+            _entitySketch = (ksEntity)_detail
+                .NewEntity((short)Obj3dType.o3d_sketch);
+            _sketchDefinition = 
+                (ksSketchDefinition)_entitySketch.GetDefinition();
             _sketchDefinition.SetPlane(_currentPlane);
             _entitySketch.Create();
         }
@@ -152,10 +161,13 @@ namespace PenBody_Cad
         /// </summary>
         private void SpinExtrude()
         {
-            var entityRotated = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_baseRotated);
-            var entityRotatedDefinition = (ksBaseRotatedDefinition)entityRotated.GetDefinition();
+            var entityRotated = (ksEntity)_detail
+                .NewEntity((short)Obj3dType.o3d_baseRotated);
+            var entityRotatedDefinition = (ksBaseRotatedDefinition)
+                entityRotated.GetDefinition();
+            var extrudeAngle = 360;
             entityRotatedDefinition.directionType = 0;
-            entityRotatedDefinition.SetSideParam(true, 360);
+            entityRotatedDefinition.SetSideParam(true, extrudeAngle);
             entityRotatedDefinition.SetSketch(_entitySketch);
             entityRotated.Create();
         }
@@ -167,16 +179,26 @@ namespace PenBody_Cad
         private ksRegularPolygonParam GetPolygon()
         {
             var poly = (ksRegularPolygonParam)_cadConnector.Kompas
-                .GetParamStruct((short)StructType2DEnum.ko_RegularPolygonParam);
-            var edgesNumber = _penBodyParametersList[ParamName.EdgesNumber];
+                .GetParamStruct(
+                (short)StructType2DEnum.ko_RegularPolygonParam);
+            //Начало координат
+            var baseXOY = 0;
+            var edgesNumber = (int)Math.Round(
+                _penBodyParametersList[ParamName.EdgesNumber]);
+            var radius = 
+                _penBodyParametersList[ParamName.MainDiameter] / 2;
+            //Коэффициент для задания радиуса полигона,
+            //чтобы он не выходил за основной диаметр
+            var coeff = 0.8;
+            var polygonRadius = coeff * radius;
 
             poly.ang = 0;
-            poly.count = (int)Math.Round(edgesNumber);
+            poly.count = edgesNumber;
             poly.describe = true;
-            poly.radius = 0.87 * _penBodyParametersList[ParamName.MainDiameter] / 2;
+            poly.radius = coeff * polygonRadius;
             poly.style = 1;
-            poly.xc = 0;
-            poly.yc = 0;
+            poly.xc = baseXOY;
+            poly.yc = baseXOY;
 
             return poly;
         }
@@ -190,9 +212,12 @@ namespace PenBody_Cad
             CreateSketch();
 
             var poly = GetPolygon();
+            var baseXOY = 0;
+            var innerRadius = 
+                _penBodyParametersList[ParamName.InnerDiameter] / 2;
 
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
-            _sketch2D.ksCircle(0, 0, _penBodyParametersList[ParamName.InnerDiameter] / 2, 1);
+            _sketch2D.ksCircle(baseXOY, baseXOY, innerRadius, 1);
             _sketch2D.ksRegularPolygon(poly);
             _sketchDefinition.EndEdit();
         }
@@ -202,10 +227,12 @@ namespace PenBody_Cad
         /// </summary>
         private void CreateNewPlane()
         {
-            var newPlaneDefinition = (ksPlaneOffsetDefinition)_currentPlane.GetDefinition();
-            newPlaneDefinition.SetPlane((ksEntity)_detail.GetDefaultEntity(
-                (short)Obj3dType.o3d_planeXOZ)
-            );
+            var newPlaneDefinition = (ksPlaneOffsetDefinition)
+                _currentPlane.GetDefinition();
+            newPlaneDefinition
+                .SetPlane((ksEntity)
+                _detail.GetDefaultEntity(
+                    (short)Obj3dType.o3d_planeXOZ));
             newPlaneDefinition.direction = true;
             newPlaneDefinition.offset = 5;
             _currentPlane.Create();
@@ -216,12 +243,15 @@ namespace PenBody_Cad
         /// </summary>
         private void Extrude()
         {
-            var entityExtrude = (ksEntity)_detail.NewEntity((short)Obj3dType.o3d_baseExtrusion);
+            var entityExtrude = (ksEntity)_detail
+                .NewEntity((short)Obj3dType.o3d_baseExtrusion);
             var entityExtrudeDefinition = 
-                (ksBaseExtrusionDefinition)entityExtrude.GetDefinition();
+                (ksBaseExtrusionDefinition)
+                entityExtrude.GetDefinition();
+            var mainLength = 
+                _penBodyParametersList[ParamName.MainLength];
             entityExtrudeDefinition.SetSideParam(
-                true, 0, _penBodyParametersList[ParamName.MainLength]
-            );
+                true, 0, mainLength);
             entityExtrudeDefinition.SetSketch(_entitySketch);
             entityExtrude.Create();
         }
@@ -232,22 +262,27 @@ namespace PenBody_Cad
         /// <param name="startPoint">Точка начала линии.</param>
         /// <param name="endPoint">Точка конца линии.</param>
         /// <param name="lineType">Тип линии.</param>
-        private void DrawLine(Point startPoint, Point endPoint, int lineType) =>
-            _sketch2D.ksLineSeg(startPoint.X, startPoint.Y, endPoint.X, endPoint.Y, lineType);
+        private void DrawLine(Point startPoint, 
+            Point endPoint, int lineType) =>
+            _sketch2D.ksLineSeg(startPoint.X, startPoint.Y, 
+                endPoint.X, endPoint.Y, lineType);
 
         /// <summary>
         /// Инициализация ссылок для работы с Компасом.
         /// </summary>
         /// <param name="penBodyParametersList">Модель параметров.</param>
-        private void InitReferences(PenBodyParametersList penBodyParametersList)
+        private void InitReferences
+            (PenBodyParametersList penBodyParametersList)
         {
             _penBodyParametersList = penBodyParametersList;
             _cadConnector = new CadConnector();
             _cadConnector.Connect();
             _document = _cadConnector.Kompas.Document3D();
             _document.Create(false, true);
-            _document = (ksDocument3D)_cadConnector.Kompas.ActiveDocument3D();
-            _detail = (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
+            _document = 
+                (ksDocument3D)_cadConnector.Kompas.ActiveDocument3D();
+            _detail = 
+                (ksPart)_document.GetPart((short)Part_Type.pTop_Part);
         }
     }
 }

@@ -70,7 +70,7 @@ namespace PenBody_Cad
         /// <summary>
         /// Минимальное количество ребёр ручки.
         /// </summary>
-        private const double MinEdgesNumber = 3;
+        private const double MinEdgesNumber = 4;
         #endregion
 
         #region Стандартные значения параметров
