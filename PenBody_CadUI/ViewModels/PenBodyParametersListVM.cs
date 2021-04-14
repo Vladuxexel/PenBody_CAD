@@ -16,6 +16,11 @@ namespace PenBody_CadUI.ViewModels
         private const string _doubleRegex = "^[0-9]*[.,]?[0-9]+$";
 
         /// <summary>
+        /// Флаг наличия рёбер у корпуса ручки.
+        /// </summary>
+        private bool _isRibbed;
+
+        /// <summary>
         /// Поле с моделью.
         /// </summary>
         private PenBodyParametersList _penBodyParametersList;
@@ -24,6 +29,19 @@ namespace PenBody_CadUI.ViewModels
         /// Свойство для вывода ошибки.
         /// </summary>
         public string Error { get; private set; }
+
+        /// <summary>
+        /// Свойство флага наличия рёбер у корпуса ручки.
+        /// </summary>
+        public bool IsRibbed 
+        {
+            get => _isRibbed;
+            set
+            {
+                _isRibbed = value;
+                PenBodyParametersList.IsRibbed = _isRibbed;
+            }
+        }
 
         /// <summary>
         /// Свойство списка параметров.
@@ -122,6 +140,7 @@ namespace PenBody_CadUI.ViewModels
         public PenBodyParametersListVM()
         {
             SetToDefault();
+            IsRibbed = PenBodyParametersList.IsRibbed;
         }
 
         /// <summary>

@@ -124,6 +124,9 @@ namespace PenBody_Cad
                 MaxEdgesNumber, MinEdgesNumber, DefaultEdgesNumber)
         };
 
+        /// <summary>
+        /// Флаг наличия рёбер у корпуса ручки.
+        /// </summary>
         public bool IsRibbed = true;
 
         /// <summary>

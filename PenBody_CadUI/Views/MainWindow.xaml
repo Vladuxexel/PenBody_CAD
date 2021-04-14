@@ -36,12 +36,13 @@
                         <ColumnDefinition Width="0.45*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 30'}"/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 30'}"/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 30'}"/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 30'}"/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 30'}"/>
+                        <RowDefinition Height="{calc:Binding 'PenBodyParametersListVM.IsRibbed ? 25 : 0'}"/>
+                        <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="Длина основной части (мм):"/>
                     <TextBox Grid.Column="1" Grid.Row="0" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
@@ -67,6 +68,22 @@
                     <TextBox Grid.Column="1" Grid.Row="5" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.EdgesNumber, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    <Grid Grid.Row="6" Grid.Column="0" Margin="0 5 0 0"
+                          IsEnabled="{calc:Binding !IsLoading}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Grid.Column="0"
+                                     Content="С рёбрами"
+                                     IsChecked="True"
+                                     Command="{Binding ChangeRibbingCommand}"
+                                     CommandParameter="true"/>
+                        <RadioButton Grid.Column="1"
+                                     Content="Без рёбер"
+                                     Command="{Binding ChangeRibbingCommand}"
+                                     CommandParameter="false"/>
+                    </Grid>
                 </Grid>
             </Border>
             <Button Grid.Row="1" Content="Сбросить" HorizontalAlignment="Left"

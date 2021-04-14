@@ -15,17 +15,20 @@ namespace PenBody_CadUI.ViewModel
         /// <summary>
         /// Сообщение нормального состояния плагина.
         /// </summary>
-        private const string WAITING_MSG = "Плагин готов к построению";
+        private const string WAITING_MSG = 
+            "Плагин готов к построению";
 
         /// <summary>
         /// Сообщение состояния плагина при загрузке.
         /// </summary>
-        private const string LOADING_MSG = "Запуск КОМПАС-3D...";
+        private const string LOADING_MSG = 
+            "Запуск КОМПАС-3D...";
 
         /// <summary>
         /// Сообщение состояния плагина при ошибке.
         /// </summary>
-        private const string ERROR_MSG = "Пожалуйста, введите корректные параметры";
+        private const string ERROR_MSG = 
+            "Пожалуйста, введите корректные параметры";
 
         /// <summary>
         /// Флаг состояния загрузки Компас-3D.
@@ -55,7 +58,8 @@ namespace PenBody_CadUI.ViewModel
         /// <summary>
         /// Вью-модель параметров.
         /// </summary>
-        public PenBodyParametersListVM PenBodyParametersListVM { get; set; }
+        public PenBodyParametersListVM 
+            PenBodyParametersListVM { get; set; }
 
         /// <summary>
         /// Конструктор класса вью-модели окна.
@@ -67,6 +71,7 @@ namespace PenBody_CadUI.ViewModel
             _penBodyBuilder = new PenBodyBuilder();
             ResetCommand = new RelayCommand(SetDefaultParams);
             BuildCommand = new RelayCommand(Build, CanBuild);
+            ChangeRibbingCommand = new RelayCommand<bool>(SetRibbing, PenBodyParametersListVM.IsValid());
         }
 
         /// <summary>
@@ -132,6 +137,12 @@ namespace PenBody_CadUI.ViewModel
         public RelayCommand BuildCommand { get; private set; }
 
         /// <summary>
+        /// Команда установки флага ребристости корпуса ручки.
+        /// </summary>
+        public RelayCommand<bool> ChangeRibbingCommand { get; private set; }
+
+
+        /// <summary>
         /// Метод установки состояния плагина.
         /// </summary>
         /// <param name="status">Статус.</param>
@@ -143,11 +154,13 @@ namespace PenBody_CadUI.ViewModel
                     IsLoading = false;
                     Message = WAITING_MSG;
                     OkIconColor = new SolidColorBrush(Colors.Green);
-                    WarningIconColor = new SolidColorBrush(Colors.Gray);
+                    WarningIconColor = 
+                        new SolidColorBrush(Colors.Gray);
                     break;
                 case State.Warning:
                     Message = ERROR_MSG;
-                    WarningIconColor = new SolidColorBrush(Color.FromRgb(247, 198, 0));
+                    WarningIconColor = new SolidColorBrush(
+                        Color.FromRgb(247, 198, 0));
                     OkIconColor = new SolidColorBrush(Colors.Gray);
                     IsLoading = false;
                     break;
@@ -155,7 +168,8 @@ namespace PenBody_CadUI.ViewModel
                     IsLoading = true;
                     Message = LOADING_MSG;
                     OkIconColor = new SolidColorBrush(Colors.Gray);
-                    WarningIconColor = new SolidColorBrush(Colors.Gray);
+                    WarningIconColor =
+                        new SolidColorBrush(Colors.Gray);
                     break;
             }
         }
@@ -181,7 +195,8 @@ namespace PenBody_CadUI.ViewModel
             {
                 try
                 {
-                    _penBodyBuilder.Build(PenBodyParametersListVM.GetValidModel());
+                    _penBodyBuilder
+                    .Build(PenBodyParametersListVM.GetValidModel());
                 }
                 catch (ArgumentException e)
                 {
@@ -197,7 +212,8 @@ namespace PenBody_CadUI.ViewModel
         /// <returns></returns>
         private bool CanBuild()
         {
-            PenBodyParametersListVM.RaisePropertyChanged(string.Empty);
+            PenBodyParametersListVM
+                .RaisePropertyChanged(string.Empty);
             if (PenBodyParametersListVM.IsValid())
             {
                 if (!IsLoading)
@@ -210,6 +226,11 @@ namespace PenBody_CadUI.ViewModel
             SetState(State.Warning);
 
             return false;
+        }
+
+        private void SetRibbing(bool isRibbed)
+        {
+            PenBodyParametersListVM.IsRibbed = isRibbed;
         }
     }
 }

@@ -204,6 +204,34 @@ namespace PenBody_Cad
         }
 
         /// <summary>
+        /// Метод получения многоугольника.
+        /// </summary>
+        /// <returns>Полигон</returns>
+        private ksCircleParam GetCircle()
+        {
+            var circle = (ksCircleParam)_cadConnector.Kompas
+                .GetParamStruct(
+                (short)StructType2DEnum.ko_CircleParam);
+
+            //Начало координат
+            var baseXOY = 0;
+
+            var radius =
+                _penBodyParametersList[ParamName.MainDiameter] / 2;
+            //Коэффициент для задания радисуа основной части,
+            //чтобы он не выходил за основной диаметр
+            var coeff = 1;
+            var circleRadius = coeff * radius;
+
+            circle.rad = coeff * circleRadius;
+            circle.style = 1;
+            circle.xc = baseXOY;
+            circle.yc = baseXOY;
+
+            return circle;
+        }
+
+        /// <summary>
         /// Метод отрисовки полого полигона.
         /// </summary>
         private void DrawPolygon()
@@ -218,7 +246,15 @@ namespace PenBody_Cad
 
             _sketch2D = (ksDocument2D)_sketchDefinition.BeginEdit();
             _sketch2D.ksCircle(baseXOY, baseXOY, innerRadius, 1);
-            _sketch2D.ksRegularPolygon(poly);
+            if (_penBodyParametersList.IsRibbed)
+            {
+                _sketch2D.ksRegularPolygon(poly);
+            }
+            else
+            {
+                _sketch2D.ksCircle(baseXOY, baseXOY, 0.45 * _penBodyParametersList[ParamName.MainDiameter], 1);
+            }
+
             _sketchDefinition.EndEdit();
         }
 
