@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace PenBody_CadUI.ViewModels
 {
-    public class PenBodyParametersListVM : 
+    public class PenBodyParametersListVM :
         ViewModelBase, IDataErrorInfo
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Свойство флага наличия рёбер у корпуса ручки.
         /// </summary>
-        public bool IsRibbed 
+        public bool IsRibbed
         {
             get => _isRibbed;
             set
@@ -158,7 +158,7 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Список параметров.
         /// </summary>
-        private List<PenBodyParameterVM> _propertyMap = 
+        private List<PenBodyParameterVM> _propertyMap =
             new List<PenBodyParameterVM>()
         {
             new PenBodyParameterVM(
@@ -194,19 +194,17 @@ namespace PenBody_CadUI.ViewModels
                 {
                     error = "Необходимо ввести число";
                 }
-                else if (!Regex.IsMatch(property.Value, _doubleRegex)
-                    || !Regex.IsMatch(property.Value, _intRegex))
+                else if (!Regex.IsMatch(property.Value, _doubleRegex) &&
+                    property.ParamName != ParamName.EdgesNumber)
                 {
-                    if (property.ParamName == ParamName.EdgesNumber)
-                    {
-                        error = "Значение параметра " +
+                    error = "Значение параметра " +
+                        "должно представляться дробным числом";
+                }
+                else if (!Regex.IsMatch(property.Value, _intRegex) &&
+                    property.ParamName == ParamName.EdgesNumber)
+                {
+                    error = "Значение параметра " +
                             "должно представляться целым числом";
-                    }
-                    else
-                    {
-                        error = "Значение параметра " +
-                            "должно представляться дробным числом";
-                    }
                 }
                 else
                 {
@@ -220,7 +218,7 @@ namespace PenBody_CadUI.ViewModels
                         error = e.Message;
                     }
                 }
-                
+
                 property.IsValid = error == null;
 
                 return error;
@@ -234,7 +232,7 @@ namespace PenBody_CadUI.ViewModels
         /// <returns>Корректна ли модель.</returns>
         public bool IsValid()
         {
-            foreach(var item in _propertyMap)
+            foreach (var item in _propertyMap)
             {
                 if (!item.IsValid)
                 {
@@ -250,7 +248,7 @@ namespace PenBody_CadUI.ViewModels
         /// </summary>
         /// <param name="name">Имя свойства.</param>
         /// <returns>Элемент списка параметров.</returns>
-        private PenBodyParameterVM GetProperty(string name) => 
+        private PenBodyParameterVM GetProperty(string name) =>
             _propertyMap.Find((property) => property.Name == name);
 
         /// <summary>
@@ -259,9 +257,9 @@ namespace PenBody_CadUI.ViewModels
         public void SetToDefault()
         {
             PenBodyParametersList = new PenBodyParametersList();
-            foreach(var item in _propertyMap)
+            foreach (var item in _propertyMap)
             {
-                item.Value = 
+                item.Value =
                     PenBodyParametersList[item.ParamName].ToString();
                 RaisePropertyChanged(item.Name);
             }
