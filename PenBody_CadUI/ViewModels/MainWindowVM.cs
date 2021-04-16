@@ -229,6 +229,7 @@ namespace PenBody_CadUI.ViewModel
             return false;
         }
 
+        //TODO: XML комментарии?
         private void SetRibbing(bool isRibbed)
         {
             PenBodyParametersListVM.IsRibbed = isRibbed;
