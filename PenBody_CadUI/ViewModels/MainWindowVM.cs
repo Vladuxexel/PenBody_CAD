@@ -229,7 +229,10 @@ namespace PenBody_CadUI.ViewModel
             return false;
         }
 
-        //TODO: XML комментарии?
+        /// <summary>
+        /// Установка наличия ребер ручки.
+        /// </summary>
+        /// <param name="isRibbed">Наличие рёбер</param>
         private void SetRibbing(bool isRibbed)
         {
             PenBodyParametersListVM.IsRibbed = isRibbed;

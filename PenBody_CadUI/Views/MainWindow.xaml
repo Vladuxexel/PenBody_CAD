@@ -7,7 +7,7 @@
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
-        Icon="pack://application:,,,/Views/Pen.ico"
+        Icon="pack://application:,,,/Assets/Pen.ico"
         ResizeMode="NoResize"
         Title="Корпус пишущей ручки" Height="350" Width="330" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
@@ -30,7 +30,7 @@
                 <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                <Grid Margin="5">
+                <Grid Margin="5 5 5 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="0.45*"/>

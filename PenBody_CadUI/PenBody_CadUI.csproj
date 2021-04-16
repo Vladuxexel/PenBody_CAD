@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Views\Pen.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\Pen.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CalcBinding, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -136,7 +136,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Views\Pen.ico" />
+    <Resource Include="Assets\Pen.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PenBody_CadInteractions\PenBody_CadInteractions.csproj">
