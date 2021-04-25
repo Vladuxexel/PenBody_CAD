@@ -29,7 +29,7 @@ namespace PenBody_Cad.UnitTests
                 });
         }
 
-        [Test(Description = 
+        [TestCase(TestName = 
             "Позитивный тест конструктора класса параметра")]
         public void ParameterConstructor_GoodValue()
         {
@@ -58,12 +58,12 @@ namespace PenBody_Cad.UnitTests
             Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [TestCase(25, Description = 
+        [TestCase(25, TestName = 
             "Позитивный тест установки значения параметра")]
-        [TestCase(30, Description = 
+        [TestCase(30, TestName = 
             "Позитивный тест установки " +
             "значения параметра на границе максимального")]
-        [TestCase(10, Description = 
+        [TestCase(10, TestName = 
             "Позитивный тест установки " +
             "значения параметра на границе минимального")]
         public void Parameter_Value_GoodValue(double goodValue)
@@ -86,10 +86,10 @@ namespace PenBody_Cad.UnitTests
         }
 
         [TestCase(50,
-            Description = 
+            TestName = 
             "Значение параметра превышает максимально допустимое")]
         [TestCase(5,
-            Description = 
+            TestName = 
             "Значение параметра меньше минимально допустимого")]
         public void Parameter_Value_BadValue(double badValue)
         {

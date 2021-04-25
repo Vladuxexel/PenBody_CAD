@@ -73,7 +73,7 @@
                     <TextBox Grid.Column="1" Grid.Row="4" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.InnerDiameter, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
-                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Количество ребер:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Количество рёбер:"/>
                     <TextBox Grid.Column="1" Grid.Row="5" MaxLength="7" IsEnabled="{calc:Binding !IsLoading}"
                              Text="{Binding PenBodyParametersListVM.EdgesNumber, 
                                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
