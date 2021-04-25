@@ -1,5 +1,8 @@
 ﻿namespace PenBody_Cad.Enums
 {
+    /// <summary>
+    /// Перечисление параметров.
+    /// </summary>
     public enum ParamName
     {
         MainLength,

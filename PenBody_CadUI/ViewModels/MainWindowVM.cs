@@ -15,19 +15,19 @@ namespace PenBody_CadUI.ViewModel
         /// <summary>
         /// Сообщение нормального состояния плагина.
         /// </summary>
-        private const string WAITING_MSG = 
+        private const string WaitingMsg = 
             "Плагин готов к построению";
 
         /// <summary>
         /// Сообщение состояния плагина при загрузке.
         /// </summary>
-        private const string LOADING_MSG = 
+        private const string LoadingMsg = 
             "Запуск КОМПАС-3D...";
 
         /// <summary>
         /// Сообщение состояния плагина при ошибке.
         /// </summary>
-        private const string ERROR_MSG = 
+        private const string ErrorMsg = 
             "Пожалуйста, введите корректные параметры";
 
         /// <summary>
@@ -153,13 +153,13 @@ namespace PenBody_CadUI.ViewModel
             {
                 case State.Ok:
                     IsLoading = false;
-                    Message = WAITING_MSG;
+                    Message = WaitingMsg;
                     OkIconColor = new SolidColorBrush(Colors.Green);
                     WarningIconColor = 
                         new SolidColorBrush(Colors.Gray);
                     break;
                 case State.Warning:
-                    Message = ERROR_MSG;
+                    Message = ErrorMsg;
                     WarningIconColor = new SolidColorBrush(
                         Color.FromRgb(247, 198, 0));
                     OkIconColor = new SolidColorBrush(Colors.Gray);
@@ -167,7 +167,7 @@ namespace PenBody_CadUI.ViewModel
                     break;
                 case State.Loading:
                     IsLoading = true;
-                    Message = LOADING_MSG;
+                    Message = LoadingMsg;
                     OkIconColor = new SolidColorBrush(Colors.Gray);
                     WarningIconColor =
                         new SolidColorBrush(Colors.Gray);
@@ -181,7 +181,7 @@ namespace PenBody_CadUI.ViewModel
         private void SetDefaultParams()
         {
             PenBodyParametersListVM.SetToDefault();
-            Message = WAITING_MSG;
+            Message = WaitingMsg;
             OkIconColor = new SolidColorBrush(Colors.Green);
             WarningIconColor = new SolidColorBrush(Colors.Gray);
         }

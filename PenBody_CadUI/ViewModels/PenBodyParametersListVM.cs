@@ -14,12 +14,12 @@ namespace PenBody_CadUI.ViewModels
         /// <summary>
         /// Регулярное выражения для числа типа double.
         /// </summary>
-        private const string _doubleRegex = "^[0-9]*[.,]?[0-9]+$";
+        private const string DoubleRegex = "^[0-9]*[.,]?[0-9]+$";
 
         /// <summary>
         /// Регулярное выражения для числа типа int.
         /// </summary>
-        private const string _intRegex = "^[0-9]+$";
+        private const string IntRegex = "^[0-9]+$";
 
         /// <summary>
         /// Флаг наличия рёбер у корпуса ручки.
@@ -194,13 +194,13 @@ namespace PenBody_CadUI.ViewModels
                 {
                     error = "Необходимо ввести число";
                 }
-                else if (!Regex.IsMatch(property.Value, _doubleRegex) &&
+                else if (!Regex.IsMatch(property.Value, DoubleRegex) &&
                     property.ParamName != ParamName.EdgesNumber)
                 {
                     error = "Значение параметра " +
                         "должно представляться дробным числом";
                 }
-                else if (!Regex.IsMatch(property.Value, _intRegex) &&
+                else if (!Regex.IsMatch(property.Value, IntRegex) &&
                     property.ParamName == ParamName.EdgesNumber)
                 {
                     error = "Значение параметра " +
