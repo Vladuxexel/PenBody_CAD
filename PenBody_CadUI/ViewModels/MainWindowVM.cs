@@ -235,7 +235,7 @@ namespace PenBody_CadUI.ViewModel
         /// <param name="isRibbed">Наличие рёбер</param>
         private void SetRibbing(bool isRibbed)
         {
-            PenBodyParametersListVM.IsRibbed = isRibbed;
+            PenBodyParametersListVM.SetRibbing(isRibbed);
         }
     }
 }

@@ -244,14 +244,6 @@ namespace PenBody_CadUI.ViewModels
         }
 
         /// <summary>
-        /// Получение свойства из списка.
-        /// </summary>
-        /// <param name="name">Имя свойства.</param>
-        /// <returns>Элемент списка параметров.</returns>
-        private PenBodyParameterVM GetProperty(string name) =>
-            _propertyMap.Find((property) => property.Name == name);
-
-        /// <summary>
         /// Метод установки значений по умолчанию.
         /// </summary>
         public void SetToDefault()
@@ -271,6 +263,21 @@ namespace PenBody_CadUI.ViewModels
         /// <returns>Экземпляр класса модели.</returns>
         public PenBodyParametersList GetValidModel() =>
             PenBodyParametersList;
+
+        public void SetRibbing(bool isRibbed)
+        {
+            IsRibbed = isRibbed;
+            EdgesNumber = PenBodyParametersList[ParamName.EdgesNumber]
+                .ToString();
+        }
+
+        /// <summary>
+        /// Получение свойства из списка.
+        /// </summary>
+        /// <param name="name">Имя свойства.</param>
+        /// <returns>Элемент списка параметров.</returns>
+        private PenBodyParameterVM GetProperty(string name) =>
+            _propertyMap.Find((property) => property.Name == name);
 
         /// <summary>
         /// Метод для замены точки на запятую.
