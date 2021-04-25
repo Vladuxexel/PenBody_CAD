@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:PenBody_CadUI.ViewModel"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
         Icon="pack://application:,,,/Assets/Pen.ico"
@@ -19,6 +20,11 @@
     <Window.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding BuildCommand}"/>
     </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <i:InvokeCommandAction Command="{Binding ClearFocusCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <DockPanel Background="#c4c4c4">
         <TextBlock DockPanel.Dock="Top" Text="Параметры построения" Style="{StaticResource Header}"/>
         <StatusBar DockPanel.Dock="Bottom" Height="20">

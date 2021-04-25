@@ -264,6 +264,10 @@ namespace PenBody_CadUI.ViewModels
         public PenBodyParametersList GetValidModel() =>
             PenBodyParametersList;
 
+        /// <summary>
+        /// Установка ребристости корпуса ручки.
+        /// </summary>
+        /// <param name="isRibbed">Наличие рёбер.</param>
         public void SetRibbing(bool isRibbed)
         {
             IsRibbed = isRibbed;

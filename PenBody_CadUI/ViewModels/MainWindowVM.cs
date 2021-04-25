@@ -6,6 +6,7 @@ using PenBody_CadUI.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace PenBody_CadUI.ViewModel
@@ -72,6 +73,7 @@ namespace PenBody_CadUI.ViewModel
             ResetCommand = new RelayCommand(SetDefaultParams);
             BuildCommand = new RelayCommand(Build, CanBuild);
             ChangeRibbingCommand = new RelayCommand<bool>(SetRibbing, PenBodyParametersListVM.IsValid());
+            ClearFocusCommand = new RelayCommand(ResetFocus);
         }
 
         /// <summary>
@@ -142,6 +144,18 @@ namespace PenBody_CadUI.ViewModel
         public RelayCommand<bool> 
             ChangeRibbingCommand { get; private set; }
 
+        /// <summary>
+        /// Команда сброса фокусов.
+        /// </summary>
+        public RelayCommand ClearFocusCommand { get; private set; }
+
+        /// <summary>
+        /// Сброс фокусов при клике вне контролла.
+        /// </summary>
+        private void ResetFocus()
+        {
+            Keyboard.ClearFocus();
+        }
 
         /// <summary>
         /// Метод установки состояния плагина.
@@ -220,6 +234,10 @@ namespace PenBody_CadUI.ViewModel
                 if (!IsLoading)
                 {
                     SetState(State.Ok);
+                }
+                else
+                {
+                    return false;
                 }
 
                 return true;
