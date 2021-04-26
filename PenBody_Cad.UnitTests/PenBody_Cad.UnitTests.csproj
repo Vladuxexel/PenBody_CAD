@@ -43,18 +43,31 @@
     <Reference Include="nunit.framework, Version=3.13.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.13.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PenBodyParametersListTests.cs" />
     <Compile Include="PenBodyParameterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StressTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PenBody_CadInteractions\PenBody_CadInteractions.csproj">
+      <Project>{cade220e-2b46-41f4-94b4-a15b8996c5b7}</Project>
+      <Name>PenBody_CadInteractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PenBody_Cad\PenBody_Cad.csproj">
       <Project>{c25185c0-70dd-43a3-bb21-63c01bcfc9f0}</Project>
       <Name>PenBody_Cad</Name>
